@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Aula 11B B1 · Professor · Enlace Brasil</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,700;1,9..144,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{--am:#d97706;--amd:#92400e;--teal:#1a9a8a;--azul:#0d3b6e;--verde:#2d8a4e;--vm:#c0392b;--cinza:#e8eaf0}
+html,body{width:100%;height:100%;font-family:'DM Sans',sans-serif;background:#1a1f2e;overflow:hidden}
+#progress{position:fixed;top:0;left:0;height:3px;background:var(--am);transition:width .3s;z-index:101}
+#controls{position:fixed;bottom:0;left:0;right:0;height:52px;background:rgba(10,15,28,.97);display:flex;align-items:center;justify-content:space-between;padding:0 22px;z-index:100;border-top:1px solid rgba(255,255,255,.07)}
+#controls .brand{font-size:.72rem;color:rgba(255,255,255,.35);letter-spacing:.06em;text-transform:uppercase}
+#controls .nav{display:flex;align-items:center;gap:10px}
+#controls button{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.12);color:#fff;width:36px;height:36px;border-radius:8px;font-size:.95rem;cursor:pointer;transition:all .15s}
+#controls button:hover{background:rgba(255,255,255,.18)}
+#controls button:disabled{opacity:.22;cursor:default}
+#slide-counter{color:rgba(255,255,255,.5);font-size:.82rem;min-width:64px;text-align:center}
+#btn-audio{width:auto!important;padding:0 12px!important;font-size:.78rem!important;color:#fde68a!important;background:rgba(217,119,6,.22)!important;border-color:rgba(217,119,6,.45)!important}
+#deck{width:100%;height:calc(100vh - 52px);position:relative;overflow:hidden}
+.slide{position:absolute;inset:0;display:flex;flex-direction:column;opacity:0;transform:translateX(38px);transition:opacity .32s,transform .32s;pointer-events:none;padding:22px 44px 16px}
+.slide.active{opacity:1;transform:translateX(0);pointer-events:all}
+.slide.exit{opacity:0;transform:translateX(-38px)}
+#s-capa{background:linear-gradient(135deg,#451a03,#1e1b4b,#14532d);align-items:center;justify-content:center;text-align:center}
+#s-capa h1{font-family:'Fraunces',serif;font-size:2.5rem;color:#fff;line-height:1.15;margin-bottom:10px}
+.deco{width:56px;height:3px;background:var(--am);margin:10px auto 18px;border-radius:2px}
+.chips{display:flex;flex-wrap:wrap;gap:7px;justify-content:center}
+.chip{background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.18);color:rgba(255,255,255,.82);padding:5px 13px;border-radius:18px;font-size:.82rem}
+.s-branco{background:#fff}.s-am{background:#fffbeb}.s-teal{background:#f0fdf9}
+.s-azul{background:#f0f5ff}.s-vm{background:#fff5f5}.s-verde{background:#f0fdf4}
+.sh{margin-bottom:11px}
+.stit{font-family:'Fraunces',serif;font-size:1.65rem;font-weight:700;color:var(--amd);line-height:1.2;margin-bottom:3px}
+.stit.tl{color:var(--teal)}.stit.az{color:var(--azul)}.stit.vm{color:var(--vm)}
+.ssub{font-size:.82rem;color:#999}
+.sbody{flex:1;overflow-y:auto}
+.cols2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.cols3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px}
+.cx{border-radius:10px;padding:11px 14px;margin-bottom:8px}
+.cx.am{background:#fffbeb;border:1.5px solid #fcd34d}
+.cx.tl{background:#e0faf5;border:1.5px solid #a0d8ce}
+.cx.az{background:#e8f0ff;border:1.5px solid #b8ccee}
+.cx.vm{background:#fdecea;border:1.5px solid #f5a0a0}
+.cx.vd{background:#e8f5ee;border:1.5px solid #a8d8be}
+.cx-tit{font-size:.66rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em;margin-bottom:7px}
+.cx.am .cx-tit{color:var(--amd)}.cx.tl .cx-tit{color:var(--teal)}
+.cx.az .cx-tit{color:var(--azul)}.cx.vm .cx-tit{color:var(--vm)}.cx.vd .cx-tit{color:var(--verde)}
+.comp{width:100%;border-collapse:collapse;font-size:.83rem;border-radius:9px;overflow:hidden;margin-bottom:8px}
+.comp thead th{background:var(--amd);color:#fff;padding:7px 10px;text-align:left;font-size:.7rem;text-transform:uppercase;letter-spacing:.04em}
+.comp thead th.tl{background:var(--teal)}.comp thead th.az{background:var(--azul)}
+.comp thead th.vm{background:var(--vm)}.comp thead th.vd{background:var(--verde)}
+.comp td{padding:7px 10px;border-bottom:1px solid #e8eaf0;font-size:.83rem}
+.comp tr:nth-child(even) td{background:#fffde7}
+.rv{background:#fff;border-radius:9px;padding:9px 12px;border:1.5px solid var(--cinza);cursor:pointer;margin-bottom:6px;transition:all .15s}
+.rv:hover{border-color:var(--am);background:#fffbeb}
+.rv-q{font-size:.88rem;font-weight:600;color:#333}
+.rv-a{display:none;font-size:.82rem;color:var(--amd);margin-top:6px;padding-top:6px;border-top:1px solid #e8eaf0}
+.np{background:rgba(13,59,110,.06);border-left:3px solid var(--azul);border-radius:0 6px 6px 0;padding:6px 10px;font-size:.74rem;color:#555;margin-top:7px}
+.np strong{color:var(--azul)}
+.bf{display:inline-flex;align-items:center;background:rgba(217,119,6,.1);border:1px solid rgba(217,119,6,.35);color:var(--amd);padding:2px 6px;border-radius:9px;font-size:.66rem;cursor:pointer;font-family:'DM Sans',sans-serif;margin-left:4px;transition:all .15s;vertical-align:middle}
+.bf:hover{background:rgba(217,119,6,.22)}
+.atencao{background:#fdecea;border-left:4px solid #e74c3c;border-radius:0 8px 8px 0;padding:8px 12px;margin:7px 0;font-size:.82rem;color:#c0392b;font-weight:600}
+.rec-btn{display:flex;align-items:center;gap:12px;border-radius:11px;padding:11px 15px;cursor:pointer;margin-bottom:9px;border:2px solid rgba(255,255,255,.08);transition:all .18s}
+.rec-btn.yt{background:#0d0d0d}.rec-btn.yt:hover{border-color:rgba(255,0,0,.4)}
+#s-final{background:linear-gradient(135deg,#451a03,#1e1b4b,#14532d);align-items:center;justify-content:center;text-align:center}
+#audio-panel{position:fixed;bottom:62px;right:18px;width:276px;background:#0d1929;border:1px solid rgba(217,119,6,.4);border-radius:12px;padding:13px 15px;z-index:200;display:none}
+#audio-panel.open{display:block}
+#ap-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;padding-bottom:9px;border-bottom:1px solid rgba(255,255,255,.08)}
+#ap-header span{font-size:.7rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:rgba(255,255,255,.65)}
+#ap-close{background:none;border:none;color:rgba(255,255,255,.38);font-size:1.1rem;cursor:pointer}
+#ap-words{display:flex;flex-wrap:wrap;gap:5px;margin-bottom:10px;max-height:150px;overflow-y:auto}
+.aw-btn{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.11);color:rgba(255,255,255,.82);padding:4px 9px;border-radius:14px;font-size:.77rem;cursor:pointer;font-family:'DM Sans',sans-serif}
+.aw-btn:hover{background:rgba(217,119,6,.3);border-color:var(--am)}
+#ap-custom{display:flex;gap:5px;margin-bottom:8px}
+#ap-input{flex:1;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.14);border-radius:7px;color:#fff;padding:6px 9px;font-size:.8rem;font-family:'DM Sans',sans-serif;outline:none}
+#ap-input:focus{border-color:var(--am)}
+#ap-custom button{background:var(--am);border:none;color:#fff;width:32px;height:32px;border-radius:7px;cursor:pointer}
+#ap-speed{display:flex;align-items:center;gap:5px;font-size:.7rem;color:rgba(255,255,255,.38)}
+.sp-btn{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);color:rgba(255,255,255,.55);padding:2px 8px;border-radius:9px;font-size:.7rem;cursor:pointer;font-family:'DM Sans',sans-serif}
+.sp-btn.active{background:rgba(217,119,6,.3);border-color:var(--am);color:#fde68a}
+@media(max-width:768px){
+  .slide{padding:12px 14px 10px}.stit{font-size:1.25rem}
+  .cols2,.cols3{grid-template-columns:1fr!important;gap:8px!important}
+  #controls .brand{display:none}#controls{padding:0 12px}
+}
+</style>
+</head>
+<body>
+<div id="progress"></div>
+<div id="deck">
+
+<!-- S1: CAPA -->
+<div class="slide active" id="s-capa">
+  <img src="data:image/png;base64,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" alt="Enlace Brasil" style="position:absolute;top:22px;left:36px;width:58px;height:58px;border-radius:50%;pointer-events:none">
+  <div style="position:absolute;top:26px;right:36px;background:var(--am);color:#fff;font-weight:700;font-size:.82rem;padding:5px 14px;border-radius:20px">B1 ★</div>
+  <div style="font-size:.75rem;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.45);margin-bottom:14px">Enlace Brasil · Intermediário · Aula 11B</div>
+  <h1>📎 Formas Nominais<br><em style="font-size:1.6rem;color:#fde68a">Infinitivo · Gerúndio · Particípio</em></h1>
+  <div class="deco"></div>
+  <div style="font-size:.9rem;color:rgba(255,255,255,.65);margin-bottom:22px">feito · aberto · pago · gerundismo ⚠️ · diferenças com o espanhol · particípios duplos</div>
+  <div class="chips">
+    <span class="chip">📌 estudar · comer · partir</span>
+    <span class="chip">⏳ estudando · comendo</span>
+    <span class="chip">✅ estudado · feito · aberto</span>
+    <span class="chip">⚠️ gerundismo: erro famoso!</span>
+    <span class="chip">🇧🇷 × 🇲🇽</span>
+  </div>
+</div>
+
+<!-- S2: VISÃO GERAL DAS 3 FORMAS -->
+<div class="slide s-am">
+  <div class="sh"><div class="stit">📎 As 3 Formas Nominais</div><div class="ssub">O verbo "vira nome" · perde a pessoa e o tempo · comparativo com espanhol</div></div>
+  <div class="sbody">
+    <div class="cols3" style="margin-bottom:10px">
+      <div style="background:#fff;border-radius:11px;padding:13px;border:2px solid var(--am);text-align:center">
+        <div style="font-size:1.4rem;margin-bottom:7px">📌</div>
+        <div style="font-weight:700;color:var(--amd);font-size:.92rem;margin-bottom:7px">INFINITIVO</div>
+        <div style="font-size:.82rem;color:#333;line-height:2.1">estudar · comer · partir<br><em style="color:#888">—AR · —ER · —IR</em></div>
+        <div style="background:#fffbeb;border-radius:7px;padding:6px;margin-top:9px;font-size:.76rem;color:var(--amd)">após verbos · após preposições · como sujeito</div>
+        <div style="font-size:.72rem;color:#888;margin-top:5px">🇲🇽 estudiar · comer · partir</div>
+      </div>
+      <div style="background:#fff;border-radius:11px;padding:13px;border:2px solid var(--teal);text-align:center">
+        <div style="font-size:1.4rem;margin-bottom:7px">⏳</div>
+        <div style="font-weight:700;color:var(--teal);font-size:.92rem;margin-bottom:7px">GERÚNDIO</div>
+        <div style="font-size:.82rem;color:#333;line-height:2.1">estudando · comendo<br>partindo<br><em style="color:#888">raiz + —NDO</em></div>
+        <div style="background:#e0faf5;border-radius:7px;padding:6px;margin-top:9px;font-size:.76rem;color:var(--teal)">ação em progresso · junto com estar/ficar</div>
+        <div style="font-size:.72rem;color:#888;margin-top:5px">🇲🇽 estudiando · comiendo ⚠️ diferente!</div>
+      </div>
+      <div style="background:#fff;border-radius:11px;padding:13px;border:2px solid var(--azul);text-align:center">
+        <div style="font-size:1.4rem;margin-bottom:7px">✅</div>
+        <div style="font-weight:700;color:var(--azul);font-size:.92rem;margin-bottom:7px">PARTICÍPIO</div>
+        <div style="font-size:.82rem;color:#333;line-height:2.1">estudado · comido<br>partido<br><em style="color:#888">regulares: —ADO / —IDO</em></div>
+        <div style="background:#e8f0ff;border-radius:7px;padding:6px;margin-top:9px;font-size:.76rem;color:var(--azul)">voz passiva · tempos compostos · adjetivo</div>
+        <div style="font-size:.72rem;color:#888;margin-top:5px">🇲🇽 estudiado · comido · IRREGULARES diferentes!</div>
+      </div>
+    </div>
+    <div style="background:#fff;border-radius:10px;padding:11px 14px;border:1.5px solid #fcd34d">
+      <div style="font-size:.7rem;font-weight:700;color:var(--amd);text-transform:uppercase;margin-bottom:8px">🇧🇷 × 🇲🇽 — A grande diferença visual</div>
+      <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;font-size:.84rem;color:#333">
+        <div>🇧🇷 <em>"Estudar é importante."</em> <button class="bf" onclick="falar('Estudar é importante.',this)">🔊</button><br>🇲🇽 <em>"Estudiar es importante."</em> <span style="color:#888;font-size:.76rem">← igual!</span></div>
+        <div>🇧🇷 <em>"Estou <strong style="color:var(--teal)">estudando</strong>."</em> <button class="bf" onclick="falar('Estou estudando.',this)">🔊</button><br>🇲🇽 <em>"Estoy <strong style="color:var(--teal)">estudiando</strong>."</em> <span style="color:#888;font-size:.76rem">← quase!</span></div>
+        <div>🇧🇷 <em>"O trabalho foi <strong style="color:var(--azul)">feito</strong>."</em> <button class="bf" onclick="falar('O trabalho foi feito.',this)">🔊</button><br>🇲🇽 <em>"El trabajo fue <strong style="color:var(--azul)">hecho</strong>."</em> <span style="color:#888;font-size:.76rem">← diferente!</span></div>
+      </div>
+    </div>
+    <div class="np"><strong>💡 Prof:</strong> "As formas nominais não têm pessoa nem tempo sozinhas — dependem de outro verbo ou contexto para funcionar." Escreva no quadro: INFINITIVO = -ar/-er/-ir · GERÚNDIO = -ndo · PARTICÍPIO = -ado/-ido</div>
+  </div>
+</div>
+
+<!-- S3: INFINITIVO — USOS -->
+<div class="slide s-am">
+  <div class="sh"><div class="stit">📌 Infinitivo — Quando usar?</div><div class="ssub">5 contextos principais · após verbos modais · após preposições · comparativo 🇧🇷 × 🇲🇽</div></div>
+  <div class="sbody">
+    <div class="cols2">
+      <div>
+        <div style="background:#fff;border-radius:11px;padding:12px;border:1.5px solid #fcd34d;margin-bottom:9px">
+          <div style="font-size:.7rem;font-weight:700;color:var(--amd);text-transform:uppercase;margin-bottom:9px">📌 5 Usos principais do Infinitivo</div>
+          <div style="display:flex;flex-direction:column;gap:7px;font-size:.84rem;color:#333">
+            <div style="background:#fffbeb;border-radius:7px;padding:7px 10px"><strong style="color:var(--amd)">1. Como sujeito</strong> <button class="bf" onclick="falar('Estudar é importante.',this)">🔊</button><br><em>"<strong>Estudar</strong> é importante." = Es importante estudiar.</em></div>
+            <div style="background:#fffbeb;border-radius:7px;padding:7px 10px"><strong style="color:var(--amd)">2. Após verbos modais</strong> <button class="bf" onclick="falar('Preciso estudar mais.',this)">🔊</button><br><em>"Preciso <strong>estudar</strong> mais." / "Quero <strong>viver</strong> em SP."</em></div>
+            <div style="background:#fffbeb;border-radius:7px;padding:7px 10px"><strong style="color:var(--amd)">3. Após ir (futuro)</strong> <button class="bf" onclick="falar('Vou viajar amanhã.',this)">🔊</button><br><em>"Vou <strong>viajar</strong> amanhã." ← sem "a"! ⚠️</em></div>
+            <div style="background:#fffbeb;border-radius:7px;padding:7px 10px"><strong style="color:var(--amd)">4. Após preposições</strong> <button class="bf" onclick="falar('Antes de sair, ligue.',this)">🔊</button><br><em>"Antes de <strong>sair</strong>..." / "Sem <strong>estudar</strong>..." / "Para <strong>aprender</strong>..."</em></div>
+            <div style="background:#fffbeb;border-radius:7px;padding:7px 10px"><strong style="color:var(--amd)">5. Em perífrases</strong> <button class="bf" onclick="falar('Tenho que terminar hoje.',this)">🔊</button><br><em>"Tenho que <strong>terminar</strong>." / "Acabou de <strong>chegar</strong>."</em></div>
+          </div>
+        </div>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:9px">
+        <div style="background:#fff;border-radius:10px;padding:12px;border:1.5px solid #fcd34d">
+          <div style="font-size:.7rem;font-weight:700;color:var(--amd);text-transform:uppercase;margin-bottom:9px">🇧🇷 × 🇲🇽 Preposições + infinitivo</div>
+          <table class="comp">
+            <thead><tr><th>PT-BR</th><th>ES-MX</th></tr></thead>
+            <tbody>
+              <tr><td><em>"Antes de <strong style="color:var(--amd)">sair</strong>..."</em> <button class="bf" onclick="falar('Antes de sair, ligue.',this)">🔊</button></td><td style="color:#888"><em>"Antes de salir..."</em></td></tr>
+              <tr><td><em>"Depois de <strong style="color:var(--amd)">chegar</strong>..."</em> <button class="bf" onclick="falar('Depois de chegar, descanse.',this)">🔊</button></td><td style="color:#888"><em>"Después de llegar..."</em></td></tr>
+              <tr><td><em>"Para <strong style="color:var(--amd)">aprender</strong>..."</em> <button class="bf" onclick="falar('Para aprender, é preciso praticar.',this)">🔊</button></td><td style="color:#888"><em>"Para aprender..."</em></td></tr>
+              <tr><td><em>"Sem <strong style="color:var(--amd)">estudar</strong>..."</em> <button class="bf" onclick="falar('Sem estudar, não vai passar.',this)">🔊</button></td><td style="color:#888"><em>"Sin estudiar..."</em></td></tr>
+              <tr><td><em>"Ao <strong style="color:var(--amd)">chegar</strong>..."</em> <button class="bf" onclick="falar('Ao chegar em casa, liguei.',this)">🔊</button></td><td style="color:#888"><em>"Al llegar..." ← igual!</em></td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="cx am">
+          <div class="cx-tit">⭐ Infinitivo pessoal — exclusivo do português!</div>
+          <div style="font-size:.84rem;color:#333;line-height:1.9">"É importante eles <strong style="color:var(--amd)">chegarem</strong> cedo." <button class="bf" onclick="falar('É importante eles chegarem cedo.',this)">🔊</button><br>O infinitivo CONCORDA com o sujeito! Não existe em espanhol.</div>
+        </div>
+        <div class="np"><strong>💡 Prof:</strong> "Ao + infinitivo" = "al + infinitivo" em ES — os alunos adoram quando descobrem que é igual!</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- S4: GERÚNDIO — A DIFERENÇA FATAL COM O ESPANHOL -->
+<div class="slide s-vm">
+  <div class="sh"><div class="stit vm">⏳ Gerúndio ⚠️ — A Diferença Fatal!</div><div class="ssub">PT-BR: estudando = ação em progresso · ES: estudiando · Gerundismo = erro famoso!</div></div>
+  <div class="sbody">
+    <div class="cols2">
+      <div>
+        <div style="background:#fff;border-radius:11px;padding:12px;border:1.5px solid #a0d8ce;margin-bottom:9px">
+          <div style="font-size:.7rem;font-weight:700;color:var(--teal);text-transform:uppercase;margin-bottom:8px">✅ Gerúndio — uso correto PT-BR</div>
+          <div style="display:flex;flex-direction:column;gap:6px;font-size:.84rem;color:#333">
+            <div style="background:#e0faf5;border-radius:7px;padding:7px 10px"><strong style="color:var(--teal)">Estar + gerúndio</strong> → ação agora <button class="bf" onclick="falar('Estou estudando agora.',this)">🔊</button><br>"Estou <strong>estudando</strong> agora."</div>
+            <div style="background:#e0faf5;border-radius:7px;padding:7px 10px"><strong style="color:var(--teal)">Ficar + gerúndio</strong> → ação repetida <button class="bf" onclick="falar('Ela fica falando ao telefone.',this)">🔊</button><br>"Ela fica <strong>falando</strong> ao telefone."</div>
+            <div style="background:#e0faf5;border-radius:7px;padding:7px 10px"><strong style="color:var(--teal)">Ação simultânea</strong> → dois verbos ao mesmo tempo <button class="bf" onclick="falar('Ele saiu correndo.',this)">🔊</button><br>"Ele saiu <strong>correndo</strong>." = salió corriendo</div>
+            <div style="background:#e0faf5;border-radius:7px;padding:7px 10px"><strong style="color:var(--teal)">Passado contínuo</strong> → estava + gerúndio <button class="bf" onclick="falar('Ela estava dormindo quando liguei.',this)">🔊</button><br>"Ela <strong>estava dormindo</strong> quando liguei."</div>
+          </div>
+        </div>
+      </div>
+      <div>
+        <div style="background:#fff;border-radius:11px;padding:12px;border:2px solid #e74c3c;margin-bottom:9px">
+          <div style="font-size:.7rem;font-weight:700;color:#c0392b;text-transform:uppercase;margin-bottom:8px">❌ GERUNDISMO — o erro do call center!</div>
+          <div class="atencao">Usar gerúndio para expressar ação FUTURA — erro famoso do atendimento ao cliente brasileiro!</div>
+          <div style="display:flex;flex-direction:column;gap:7px;font-size:.84rem;color:#333;margin-top:8px">
+            <div style="background:#fdecea;border-radius:7px;padding:7px 10px">❌ "Eu vou estar <strong style="color:#c0392b">transferindo</strong> sua ligação." <br>✅ "Vou <strong style="color:var(--verde)">transferir</strong> sua ligação." <button class="bf" onclick="falar('Vou transferir sua ligação.',this)">🔊</button></div>
+            <div style="background:#fdecea;border-radius:7px;padding:7px 10px">❌ "Vou estar <strong style="color:#c0392b">enviando</strong> o e-mail."<br>✅ "Vou <strong style="color:var(--verde)">enviar</strong> o e-mail." <button class="bf" onclick="falar('Vou enviar o e-mail.',this)">🔊</button></div>
+            <div style="background:#fdecea;border-radius:7px;padding:7px 10px">❌ "Estava <strong style="color:#c0392b">querendo</strong> te ligar."<br>✅ "Queria te ligar." <button class="bf" onclick="falar('Queria te ligar.',this)">🔊</button></div>
+          </div>
+        </div>
+        <div class="cx tl">
+          <div class="cx-tit">🇧🇷 × 🇲🇽 — Gerúndio × Infinitivo</div>
+          <div style="font-size:.83rem;color:#333;line-height:2">
+            🇧🇷 "Estou <strong style="color:var(--teal)">estudando</strong>" → ação agora <button class="bf" onclick="falar('Estou estudando agora.',this)">🔊</button><br>
+            🇲🇽 "Estoy <strong style="color:var(--teal)">estudiando</strong>" → igual!<br><br>
+            🇧🇷 "Preciso <strong style="color:var(--am)">estudar</strong>" → necessidade <button class="bf" onclick="falar('Preciso estudar mais.',this)">🔊</button><br>
+            🇲🇽 "Necesito <strong style="color:var(--am)">estudiar</strong>" → igual!<br><br>
+            ⚠️ 🇲🇽 "Sigo <strong style="color:#c0392b">estudiando</strong>" → em PT: "Continuo <strong style="color:var(--teal)">estudando</strong>" ✅
+          </div>
+        </div>
+        <div class="np"><strong>💡 Prof:</strong> O gerundismo ficou famoso como piada no Brasil — "Vou estar passando o bom dia!" Mostre o vídeo do YouTube para os alunos rirem e entenderem!</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- S5: VÍDEO GERUNDISMO -->
+<div class="slide" style="background:#1a1f2e;padding:22px 44px 16px;display:flex;flex-direction:column">
+  <div class="sh"><div class="stit" style="color:#fde68a">📺 Vídeo — Gerundismo no Brasil</div><div class="ssub" style="color:rgba(255,255,255,.5)">O erro que virou piada nacional · call center · Luís Fernando Veríssimo</div></div>
+  <div class="sbody">
+    <div class="cols2">
+      <div>
+        <div class="rec-btn yt" onclick="window.open('https://www.youtube.com/shorts/g2pAFGnJuGU','_blank')" style="margin-bottom:7px">
+          <div style="font-size:1.8rem">▶️</div>
+          <div style="flex:1"><div style="color:#fff;font-weight:700;font-size:.88rem">Explicando o que é Gerúndio 📌</div><div style="color:rgba(255,255,255,.5);font-size:.72rem">YouTube Shorts · definição rápida · ideal para introduzir o tema</div></div>
+          <button style="background:#ff0000;color:#fff;font-weight:700;font-size:.74rem;padding:6px 12px;border-radius:6px;border:none;cursor:pointer">▶ Ver</button>
+        </div>
+        <div class="rec-btn yt" onclick="window.open('https://www.youtube.com/watch?v=62D2m_c3lpE','_blank')" style="margin-bottom:7px">
+          <div style="font-size:1.8rem">▶️</div>
+          <div style="flex:1"><div style="color:#fff;font-weight:700;font-size:.88rem">Cuidado com o GERUNDISMO 😂</div><div style="color:rgba(255,255,255,.5);font-size:.72rem">YouTube · divertido · exemplos do cotidiano · PT-BR</div></div>
+          <button style="background:#ff0000;color:#fff;font-weight:700;font-size:.74rem;padding:6px 12px;border-radius:6px;border:none;cursor:pointer">▶ Ver</button>
+        </div>
+        <div class="rec-btn yt" onclick="window.open('https://www.youtube.com/watch?v=dy3gfTdb9jY','_blank')" style="margin-bottom:7px">
+          <div style="font-size:1.8rem">▶️</div>
+          <div style="flex:1"><div style="color:#fff;font-weight:700;font-size:.88rem">Gerundismo — 2º vídeo 😄</div><div style="color:rgba(255,255,255,.5);font-size:.72rem">YouTube · mais exemplos · reforço do conteúdo</div></div>
+          <button style="background:#ff0000;color:#fff;font-weight:700;font-size:.74rem;padding:6px 12px;border-radius:6px;border:none;cursor:pointer">▶ Ver</button>
+        </div>
+        <div class="rec-btn yt" onclick="window.open('https://www.youtube.com/watch?v=oJyXRekaCn0','_blank')" style="margin-bottom:10px">
+          <div style="font-size:1.8rem">▶️</div>
+          <div style="flex:1"><div style="color:#fff;font-weight:700;font-size:.88rem">Gerundismo — 3º vídeo 🎬</div><div style="color:rgba(255,255,255,.5);font-size:.72rem">YouTube · escolha o favorito para a aula!</div></div>
+          <button style="background:#ff0000;color:#fff;font-weight:700;font-size:.74rem;padding:6px 12px;border-radius:6px;border:none;cursor:pointer">▶ Ver</button>
+        </div>
+        <div style="background:rgba(255,255,255,.06);border-radius:10px;padding:12px;border:1.5px solid rgba(217,119,6,.3);margin-bottom:9px">
+          <div style="font-size:.68rem;font-weight:700;color:#fde68a;text-transform:uppercase;margin-bottom:8px">🖊 Luís Fernando Veríssimo sobre o gerundismo:</div>
+          <div style="font-size:.84rem;color:rgba(255,255,255,.82);font-style:italic;line-height:1.9">"No dia 22 de abril de 1500, Pedro Álvares Cabral não estava descobrindo o Brasil — <strong style="color:#fde68a">estava A descobrir</strong> o Brasil."<br><br>Um dos maiores mistérios da língua: por que o gerúndio é tão usado no Brasil e quase não existe em Portugal?</div>
+        </div>
+      </div>
+      <div>
+        <div style="background:rgba(255,255,255,.06);border-radius:10px;padding:12px;border:1.5px solid rgba(217,119,6,.3)">
+          <div style="font-size:.68rem;font-weight:700;color:#fde68a;text-transform:uppercase;margin-bottom:9px">🔍 Curiosidade cultural — Por que tanto gerúndio no Brasil?</div>
+          <div style="font-size:.84rem;color:rgba(255,255,255,.82);line-height:2">
+            📺 <strong style="color:#fde68a">Influência do inglês</strong> → "I'm sending" = "Estou enviando"<br>
+            📞 <strong style="color:#fde68a">Call centers nos anos 90</strong> → "gerundismo" virou padrão errado<br>
+            🇵🇹 <strong style="color:#fde68a">Portugal usa</strong> "estar A + infinitivo" → "estou A estudar"<br>
+            🇧🇷 <strong style="color:#fde68a">Brasil usa</strong> gerúndio sem "a" → "estou estudando"<br><br>
+            <em style="color:rgba(255,255,255,.6);font-size:.78rem">Os dois estão certos — são variantes diferentes do mesmo idioma!</em>
+          </div>
+        </div>
+        <div style="background:rgba(255,255,255,.06);border-radius:10px;padding:10px 12px;border:1.5px solid rgba(26,154,138,.3);margin-top:9px">
+          <div style="font-size:.68rem;font-weight:700;color:#99f6e4;text-transform:uppercase;margin-bottom:7px">💬 Discussão</div>
+          <div style="font-size:.84rem;color:rgba(255,255,255,.8);line-height:1.9">Em espanhol mexicano existem vícios de linguagem parecidos? <button class="bf" style="color:#fde68a;border-color:rgba(217,119,6,.3)" onclick="falar('Em espanhol mexicano existem vícios de linguagem parecidos?',this)">🔊</button><br>"Ahorita te estoy llamando" — é gerundismo também?</div>
+        </div>
+        <div class="np"><strong>💡 Prof:</strong> Associe ao humor cultural — pergunte se no espanhol mexicano existe algo parecido!</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- S6: PARTICÍPIO — REGULARES E IRREGULARES -->
+<div class="slide s-azul">
+  <div class="sh"><div class="stit az">✅ Particípio — Regulares e Irregulares</div><div class="ssub">—ADO / —IDO · irregulares essenciais · duplos ⭐ · os erros mais comuns!</div></div>
+  <div class="sbody">
+    <div class="cols2">
+      <div>
+        <div style="background:#fff;border-radius:11px;padding:12px;border:1.5px solid #b8ccee;margin-bottom:9px">
+          <div style="font-size:.7rem;font-weight:700;color:var(--azul);text-transform:uppercase;margin-bottom:8px">📐 Formação regular</div>
+          <table class="comp">
+            <thead><tr><th class="az">Infinitivo</th><th class="az">Particípio</th><th class="az">🇲🇽 ES</th></tr></thead>
+            <tbody>
+              <tr><td>estudar</td><td><strong style="color:var(--azul)">estudado</strong></td><td style="color:#888">estudiado</td></tr>
+              <tr><td>falar</td><td><strong style="color:var(--azul)">falado</strong></td><td style="color:#888">hablado</td></tr>
+              <tr><td>comer</td><td><strong style="color:var(--azul)">comido</strong></td><td style="color:#888">comido</td></tr>
+              <tr><td>viver</td><td><strong style="color:var(--azul)">vivido</strong></td><td style="color:#888">vivido</td></tr>
+              <tr><td>partir</td><td><strong style="color:var(--azul)">partido</strong></td><td style="color:#888">partido</td></tr>
+            </tbody>
+          </table>
+          <div style="font-size:.78rem;color:#888;margin-top:6px">✅ Regra fácil: –AR → –ADO · –ER/–IR → –IDO</div>
+        </div>
+        <div style="background:#fff;border-radius:11px;padding:12px;border:2px solid #c0392b;margin-bottom:9px">
+          <div style="font-size:.7rem;font-weight:700;color:#c0392b;text-transform:uppercase;margin-bottom:8px">⚡ Irregulares — OS MAIS USADOS</div>
+          <table class="comp">
+            <thead><tr><th class="vm">Infinitivo</th><th class="vm">Particípio ⚡</th><th class="vm">🇲🇽 ES</th></tr></thead>
+            <tbody>
+              <tr><td>fazer</td><td><strong style="color:#c0392b">feito</strong> <button class="bf" onclick="falar('O trabalho está feito.',this)">🔊</button></td><td style="color:#888">hecho</td></tr>
+              <tr><td>abrir</td><td><strong style="color:#c0392b">aberto</strong> <button class="bf" onclick="falar('A janela está aberta.',this)">🔊</button></td><td style="color:#888">abierto ← igual!</td></tr>
+              <tr><td>pagar</td><td><strong style="color:#c0392b">pago</strong> <button class="bf" onclick="falar('A conta foi paga.',this)">🔊</button></td><td style="color:#888">pagado ← diferente!</td></tr>
+              <tr><td>escrever</td><td><strong style="color:#c0392b">escrito</strong> <button class="bf" onclick="falar('O texto está escrito.',this)">🔊</button></td><td style="color:#888">escrito ← igual!</td></tr>
+              <tr><td>dizer</td><td><strong style="color:#c0392b">dito</strong> <button class="bf" onclick="falar('O que foi dito não pode ser mudado.',this)">🔊</button></td><td style="color:#888">dicho ← diferente!</td></tr>
+              <tr><td>vir</td><td><strong style="color:#c0392b">vindo</strong> <button class="bf" onclick="falar('Você tem vindo cedo.',this)">🔊</button></td><td style="color:#888">venido ← diferente!</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div>
+        <div style="background:#fff;border-radius:11px;padding:12px;border:2px solid var(--am)">
+          <div style="font-size:.7rem;font-weight:700;color:var(--amd);text-transform:uppercase;margin-bottom:8px">⭐ DUPLOS — Particípios abundantes!</div>
+          <div style="font-size:.76rem;color:#555;margin-bottom:9px;font-style:italic">Dois particípios corretos — mas com usos diferentes!</div>
+          <table class="comp">
+            <thead><tr><th>Verbo</th><th>Regular (ter/haver)</th><th>Irregular (ser/estar/ficar)</th></tr></thead>
+            <tbody>
+              <tr><td>pagar</td><td><strong style="color:var(--azul)">pagado</strong></td><td><strong style="color:#c0392b">pago</strong> ⭐ <button class="bf" onclick="falar('A conta está paga.',this)">🔊</button></td></tr>
+              <tr><td>aceitar</td><td><strong style="color:var(--azul)">aceitado</strong></td><td><strong style="color:#c0392b">aceito</strong> <button class="bf" onclick="falar('O projeto foi aceito.',this)">🔊</button></td></tr>
+              <tr><td>eleger</td><td><strong style="color:var(--azul)">elegido</strong></td><td><strong style="color:#c0392b">eleito</strong> <button class="bf" onclick="falar('Ele foi eleito presidente.',this)">🔊</button></td></tr>
+              <tr><td>limpar</td><td><strong style="color:var(--azul)">limpado</strong></td><td><strong style="color:#c0392b">limpo</strong> <button class="bf" onclick="falar('A casa está limpa.',this)">🔊</button></td></tr>
+              <tr><td>entregar</td><td><strong style="color:var(--azul)">entregado</strong></td><td><strong style="color:#c0392b">entregue</strong> <button class="bf" onclick="falar('O pacote foi entregue.',this)">🔊</button></td></tr>
+              <tr><td>imprimir</td><td><strong style="color:var(--azul)">imprimido</strong></td><td><strong style="color:#c0392b">impresso</strong> <button class="bf" onclick="falar('O documento foi impresso.',this)">🔊</button></td></tr>
+            </tbody>
+          </table>
+          <div style="background:#fffbeb;border-radius:7px;padding:8px 11px;margin-top:8px;font-size:.78rem;color:var(--amd)">
+            <strong>Regra:</strong> ter/haver + REGULAR · ser/estar/ficar + IRREGULAR<br>
+            "Tenho <strong>pagado</strong> em dia." vs "A conta está <strong>paga</strong>."
+          </div>
+        </div>
+        <div class="np"><strong>💡 Prof:</strong> Os 3 que mais aparecem nas provas e no dia a dia: <strong>feito · aberto · pago</strong> — peça ao aluno criar uma frase com cada um!</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- S7: FINAL -->
+<div class="slide" id="s-final">
+  <div style="position:absolute;inset:0;background:linear-gradient(135deg,#451a03,#1e1b4b,#14532d);z-index:0"></div>
+  <div style="position:relative;z-index:1;display:flex;flex-direction:column;align-items:center;justify-content:center;height:100%;text-align:center;padding:30px 52px">
+    <div style="font-size:2rem;margin-bottom:16px">📌⏳✅⭐</div>
+    <h2 style="font-family:'Fraunces',serif;font-size:2.5rem;color:#fff;margin-bottom:6px">Muito bem!</h2>
+    <p style="color:rgba(255,255,255,.6);font-size:.88rem;margin-bottom:24px;text-transform:uppercase;letter-spacing:.04em">Aula 11B · B1 · Formas Nominais</p>
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:10px;width:100%;max-width:700px;margin-bottom:20px">
+      <div style="background:rgba(255,255,255,.1);border:1.5px solid rgba(255,255,255,.2);border-radius:12px;padding:13px 8px"><div style="font-size:1.2rem;margin-bottom:5px">📌</div><div style="font-weight:700;color:#fff;font-size:.8rem">Infinitivo</div><div style="font-size:.66rem;color:rgba(255,255,255,.55);margin-top:3px">estudar · comer<br>após verbos e preposições</div></div>
+      <div style="background:rgba(255,255,255,.1);border:1.5px solid rgba(255,255,255,.2);border-radius:12px;padding:13px 8px"><div style="font-size:1.2rem;margin-bottom:5px">⏳</div><div style="font-weight:700;color:#fff;font-size:.8rem">Gerúndio</div><div style="font-size:.66rem;color:rgba(255,255,255,.55);margin-top:3px">estudando · comendo<br>⚠️ sem gerundismo!</div></div>
+      <div style="background:rgba(255,255,255,.1);border:1.5px solid rgba(255,255,255,.2);border-radius:12px;padding:13px 8px"><div style="font-size:1.2rem;margin-bottom:5px">✅</div><div style="font-weight:700;color:#fff;font-size:.8rem">Particípio</div><div style="font-size:.66rem;color:rgba(255,255,255,.55);margin-top:3px">feito · aberto · pago<br>⭐ duplos!</div></div>
+    </div>
+    <div style="background:rgba(217,119,6,.15);border:1.5px solid rgba(217,119,6,.4);border-radius:10px;padding:10px 22px;margin-bottom:14px">
+      <p style="color:#fde68a;font-size:.88rem;font-weight:600;font-style:italic">"A conta está paga, o projeto foi feito e a janela está aberta!" ✅🇧🇷</p>
+    </div>
+    <p style="font-size:.72rem;color:rgba(255,255,255,.35);letter-spacing:.06em;text-transform:uppercase">Enlace Brasil · Instituto de Língua e Cultura Brasileira · Ciudad de México</p>
+  </div>
+</div>
+
+</div>
+<div id="controls">
+  <div class="brand">Enlace Brasil · Aula 11B B1 · Formas Nominais</div>
+  <div class="nav">
+    <button id="btn-prev" onclick="nav(-1)" disabled>←</button>
+    <span id="slide-counter">1 / 7</span>
+    <button id="btn-next" onclick="nav(1)">→</button>
+    <button id="btn-audio" onclick="togglePanel()">🔊 Áudio</button>
+  </div>
+  <div style="font-size:.7rem;color:rgba(255,255,255,.28)">👩‍🏫 Professor</div>
+</div>
+<div id="audio-panel">
+  <div id="ap-header"><span>🔊 Pronúncia</span><button id="ap-close" onclick="togglePanel()">×</button></div>
+  <div id="ap-words"></div>
+  <div id="ap-custom"><input id="ap-input" type="text" placeholder="Digite uma frase…" onkeydown="if(event.key==='Enter')falarCustom()"><button onclick="falarCustom()">▶</button></div>
+  <div id="ap-speed"><span>Vel:</span><button class="sp-btn active" onclick="setSpeed(.65,this)">Lento</button><button class="sp-btn" onclick="setSpeed(1,this)">Normal</button><button class="sp-btn" onclick="setSpeed(1.3,this)">Rápido</button></div>
+</div>
+<script>
+const palavras=[
+  ['estudar comer partir','estudando comendo partindo','estudado comido partido','feito aberto pago escrito dito'],
+  ['Estudar é importante','Preciso estudar mais','Vou viajar amanhã','Antes de sair ligue','Depois de chegar descanse','Para aprender é preciso praticar','Sem estudar não vai passar','Ao chegar em casa liguei','Tenho que terminar hoje','Acabou de chegar'],
+  ['Estou estudando agora','Ela fica falando ao telefone','Ele saiu correndo','Ela estava dormindo quando liguei','Continuo estudando'],
+  ['Vou transferir sua ligação','Vou enviar o e-mail','Queria te ligar','Eu estou estudando agora não é gerundismo','Estou fazendo o relatório'],
+  ['O trabalho está feito','A janela está aberta','A conta foi paga','O texto está escrito','O que foi dito não pode ser mudado','Ela foi eleita presidente','A casa está limpa','O pacote foi entregue','O documento foi impresso'],
+  ['feito aberto pago escrito dito','pagado pago','aceitado aceito','elegido eleito','limpado limpo','entregado entregue','imprimido impresso','Tenho pagado a conta','A conta está paga'],
+  ['Vou transferir sua ligação','Estou estudando','O projeto foi aceito','A conta está paga','A janela está aberta'],
+  ['A conta está paga o projeto foi feito e a janela está aberta'],
+];
+const slides=document.querySelectorAll('.slide');const total=slides.length;
+let cur=0,veloc=.65,vozPT=null,btnAtivo=null;
+function nav(dir){const p=cur;cur=Math.max(0,Math.min(total-1,cur+dir));if(cur===p)return;if(window.speechSynthesis)window.speechSynthesis.cancel();slides[p].classList.remove('active');slides[p].classList.add('exit');setTimeout(()=>slides[p].classList.remove('exit'),350);slides[cur].classList.add('active');update();atualizarPalavras();}
+function update(){document.getElementById('slide-counter').textContent=`${cur+1} / ${total}`;document.getElementById('btn-prev').disabled=cur===0;document.getElementById('btn-next').disabled=cur===total-1;document.getElementById('progress').style.width=`${((cur+1)/total)*100}%`;}
+async function carregarVoz(){return new Promise(res=>{if(!window.speechSynthesis){res(null);return;}const v=window.speechSynthesis.getVoices();res(v.find(x=>x.lang.startsWith('pt-BR'))||v.find(x=>x.lang.startsWith('pt'))||v[0]);});}
+if(window.speechSynthesis)window.speechSynthesis.onvoiceschanged=async()=>{vozPT=await carregarVoz();};
+async function falar(txt,btn){if(!window.speechSynthesis)return;if(!vozPT)vozPT=await carregarVoz();window.speechSynthesis.cancel();if(btnAtivo){btnAtivo.classList.remove('speaking');btnAtivo.textContent=btnAtivo.dataset.orig||'🔊';}const u=new SpeechSynthesisUtterance(txt);u.voice=vozPT;u.lang='pt-BR';u.rate=veloc;u.pitch=1.05;if(btn){btnAtivo=btn;btn.dataset.orig=btn.textContent;btn.classList.add('speaking');}u.onend=()=>{if(btn){btn.classList.remove('speaking');btn.textContent=btn.dataset.orig||'🔊';}btnAtivo=null;};window.speechSynthesis.speak(u);}
+function falarCustom(){const v=document.getElementById('ap-input').value.trim();if(v)falar(v,null);}
+function setSpeed(s,btn){veloc=s;document.querySelectorAll('.sp-btn').forEach(b=>b.classList.remove('active'));btn.classList.add('active');}
+function togglePanel(){document.getElementById('audio-panel').classList.toggle('open');}
+function atualizarPalavras(){const c=document.getElementById('ap-words');c.innerHTML='';(palavras[cur]||[]).forEach(p=>{const btn=document.createElement('button');btn.className='aw-btn';btn.textContent=p;btn.onclick=()=>falar(p,btn);c.appendChild(btn);});}
+document.addEventListener('keydown',e=>{if(e.key==='ArrowRight'||e.key==='ArrowDown')nav(1);if(e.key==='ArrowLeft'||e.key==='ArrowUp')nav(-1);});
+update();atualizarPalavras();
+</script>
+</body>
+</html>
