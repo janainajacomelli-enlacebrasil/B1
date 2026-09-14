@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Aula 11 B1 · Aluno · Enlace Brasil</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,700;1,9..144,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{--i:#4338ca;--id:#312e81;--teal:#1a9a8a;--verde:#2d8a4e;--vm:#c0392b;--cinza:#e8eaf0;--bg:#f7f9fc}
+body{font-family:'DM Sans',sans-serif;background:var(--bg);color:#1a1a1a;font-size:15px;line-height:1.6}
+header{background:linear-gradient(135deg,#1e1b4b,#1e3a5f,#14532d)}
+.hdr{max-width:920px;margin:0 auto;padding:20px 22px 18px;display:flex;align-items:center;gap:14px}
+.hdr img{width:56px;height:56px;border-radius:50%;flex-shrink:0}
+.hdr-txt{flex:1}.hdr-pre{font-size:.7rem;letter-spacing:.1em;text-transform:uppercase;opacity:.55;margin-bottom:3px;color:#fff}
+.hdr-h1{font-family:'Fraunces',serif;font-size:1.5rem;font-weight:700;color:#fff}
+.hdr-sub{font-size:.76rem;opacity:.7;margin-top:3px;color:#fff}
+.hdr-badge{background:var(--i);color:#fff;font-weight:700;font-size:.76rem;padding:5px 12px;border-radius:16px;flex-shrink:0}
+.main{max-width:920px;margin:0 auto;padding:22px 18px 60px}
+.secao{background:#fff;border-radius:12px;border:1px solid #dde4f0;margin-bottom:22px;overflow:hidden}
+.sec-hdr{padding:11px 18px 9px;display:flex;align-items:center;gap:10px;border-bottom:1px solid #dde4f0}
+.sec-hdr.ind{background:#eef2ff}.sec-hdr.tl{background:#e8faf5}.sec-hdr.vd{background:#e8f5ee}
+.sec-hdr.vm{background:#fff5f5}.sec-hdr.ou{background:#fffbe6}
+.sec-hdr.game{background:linear-gradient(90deg,#1e1b4b,#1e3a5f)}
+.sec-num{width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:.78rem;flex-shrink:0}
+.ind .sec-num{background:var(--id);color:#fff}.tl .sec-num{background:var(--teal);color:#fff}
+.vd .sec-num{background:var(--verde);color:#fff}.vm .sec-num{background:var(--vm);color:#fff}
+.ou .sec-num{background:#92400e;color:#fff}.game .sec-num{background:#c7d2fe;color:var(--id)}
+.sec-tit{font-family:'Fraunces',serif;font-size:1rem;font-weight:700}
+.ind .sec-tit{color:var(--id)}.tl .sec-tit{color:var(--teal)}.vd .sec-tit{color:var(--verde)}
+.vm .sec-tit{color:var(--vm)}.ou .sec-tit{color:#92400e}.game .sec-tit{color:#fff}
+.sec-body{padding:16px 18px}
+input.lc{border:none;border-bottom:2px solid var(--i);background:transparent;font-family:'DM Sans',sans-serif;font-size:.9rem;min-width:80px;padding:0 4px;outline:none;color:var(--id)}
+.frase{background:#eef2ff;border-radius:8px;padding:10px 14px;font-size:.9rem;margin-bottom:8px;line-height:2;border-left:3px solid var(--i)}
+.frase.vm{background:#fff5f5;border-left-color:var(--vm)}
+.frase.vd{background:#e8f5ee;border-left-color:var(--verde)}
+.opcoes{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:6px}
+.op{padding:6px 14px;border-radius:16px;border:2px solid var(--cinza);background:#fff;font-family:'DM Sans',sans-serif;font-size:.82rem;cursor:pointer;transition:all .16s}
+.op:hover{border-color:var(--i);background:#eef2ff}
+.op.ok{border-color:var(--teal);background:var(--teal);color:#fff}
+.op.no{border-color:#e74c3c;background:#fdecea;color:#c0392b}
+.fb{margin-top:6px;font-size:.82rem;padding:6px 11px;border-radius:6px;display:none}
+.fb.ok{background:#e8faf5;color:var(--teal);display:block}.fb.no{background:#fdecea;color:#c0392b;display:block}
+.bs{display:inline-flex;align-items:center;background:rgba(67,56,202,.1);border:1px solid rgba(67,56,202,.3);color:var(--id);padding:2px 7px;border-radius:9px;font-size:.68rem;cursor:pointer;font-family:'DM Sans',sans-serif;margin-left:5px}
+.btn-ver{background:var(--id);color:#fff;border:none;padding:7px 16px;border-radius:7px;font-family:'DM Sans',sans-serif;font-size:.82rem;font-weight:600;cursor:pointer;margin-top:8px}
+textarea.area{width:100%;border:1.5px solid var(--cinza);border-radius:7px;padding:9px 11px;font-family:'DM Sans',sans-serif;font-size:.88rem;resize:none;outline:none;line-height:1.8}
+textarea.area:focus{border-color:var(--i)}
+.poema-box{background:#1e1b4b;border-radius:11px;padding:14px 18px;border:1.5px solid rgba(67,56,202,.5);margin-bottom:12px}
+.poema-txt{font-family:'Fraunces',serif;font-style:italic;font-size:.9rem;color:rgba(255,255,255,.88);line-height:2.4}
+.pdest{font-weight:700;font-style:normal;color:#c7d2fe;background:rgba(67,56,202,.25);border-radius:3px;padding:0 3px}
+.quiz-wrap{background:linear-gradient(135deg,#1e1b4b,#1e3a5f);border-radius:12px;padding:18px;margin-bottom:10px}
+.quiz-topo{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px}
+.quiz-score{color:#c7d2fe;font-weight:700;font-size:1rem}
+.quiz-timer{background:rgba(255,255,255,.1);border-radius:20px;padding:4px 12px;color:#fff;font-size:.88rem;font-weight:700}
+.quiz-timer.urgente{color:#ff6b6b;animation:pulso .5s infinite}
+@keyframes pulso{0%,100%{opacity:1}50%{opacity:.5}}
+.quiz-pergunta{color:#fff;font-size:.92rem;font-weight:600;text-align:center;margin-bottom:14px;min-height:44px;display:flex;align-items:center;justify-content:center;line-height:1.5}
+.quiz-ops{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:10px}
+.quiz-op{background:rgba(255,255,255,.08);border:2px solid rgba(255,255,255,.15);color:#fff;border-radius:9px;padding:9px 12px;font-family:'DM Sans',sans-serif;font-size:.82rem;cursor:pointer;transition:all .18s;text-align:center}
+.quiz-op:hover:not(:disabled){background:rgba(67,56,202,.3);border-color:var(--i)}
+.quiz-op.certa{background:var(--teal)!important;border-color:var(--teal)!important}
+.quiz-op.errada{background:rgba(231,76,60,.3)!important;border-color:#e74c3c!important}
+.quiz-op:disabled{cursor:default}
+.quiz-fb{text-align:center;font-size:.82rem;min-height:22px;color:rgba(255,255,255,.8);margin-bottom:8px}
+.quiz-prog{background:rgba(255,255,255,.1);border-radius:10px;height:5px;overflow:hidden}
+.quiz-prog-bar{background:var(--i);height:100%;transition:width .3s;border-radius:10px}
+.quiz-btn{background:var(--i);color:#fff;border:none;padding:8px 22px;border-radius:8px;font-family:'DM Sans',sans-serif;font-size:.84rem;font-weight:700;cursor:pointer;display:block;margin:10px auto 0}
+footer{text-align:center;padding:14px;font-size:.74rem;color:#aaa;border-top:1px solid #dde4f0}
+</style>
+</head>
+<body>
+<header>
+  <div class="hdr">
+    <img src="data:image/png;base64,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" alt="Enlace Brasil">
+    <div class="hdr-txt">
+      <div class="hdr-pre">Enlace Brasil · B1 · Aula 11</div>
+      <div class="hdr-h1">🔗 Conectores Lógicos e Discursivos</div>
+      <div class="hdr-sub">adição · contraste · causa · consequência · condição · embora + subjuntivo ⚠️ · 🇧🇷 × 🇲🇽</div>
+    </div>
+    <div class="hdr-badge">B1 · Aluno</div>
+  </div>
+</header>
+<div class="main">
+
+<!-- REFERÊNCIA -->
+<div class="secao">
+  <div class="sec-hdr ind"><div class="sec-num">📋</div><div class="sec-tit">Referência — Mapa dos Conectores</div></div>
+  <div class="sec-body">
+    <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin-bottom:12px">
+      <div style="background:#eef2ff;border-radius:9px;padding:10px 12px;border-left:4px solid var(--id)">
+        <div style="font-size:.66rem;font-weight:700;color:var(--id);text-transform:uppercase;margin-bottom:7px">➕ Adição</div>
+        <div style="font-size:.82rem;line-height:2"><strong style="color:var(--id)">além disso</strong> · <strong style="color:var(--id)">também</strong><br><strong style="color:var(--id)">não só...mas também</strong><br><strong style="color:var(--id)">inclusive</strong> · <strong style="color:var(--id)">ademais</strong></div>
+        <div style="font-size:.72rem;color:#888;margin-top:5px">🇲🇽 además · también · no solo...sino</div>
+      </div>
+      <div style="background:#fff5f5;border-radius:9px;padding:10px 12px;border-left:4px solid var(--vm)">
+        <div style="font-size:.66rem;font-weight:700;color:var(--vm);text-transform:uppercase;margin-bottom:7px">⚡ Contraste ⚠️</div>
+        <div style="font-size:.82rem;line-height:2"><strong style="color:var(--vm)">embora</strong> + <u>subjuntivo</u><br><strong style="color:var(--vm)">apesar de</strong> + infinitivo<br><strong style="color:var(--vm)">no entanto</strong> · <strong style="color:var(--vm)">porém</strong></div>
+        <div style="font-size:.72rem;color:#888;margin-top:5px">🇲🇽 aunque · a pesar de · sin embargo</div>
+      </div>
+      <div style="background:#e8f5ee;border-radius:9px;padding:10px 12px;border-left:4px solid var(--verde)">
+        <div style="font-size:.66rem;font-weight:700;color:var(--verde);text-transform:uppercase;margin-bottom:7px">🔍 Causa</div>
+        <div style="font-size:.82rem;line-height:2"><strong style="color:var(--verde)">porque</strong> · <strong style="color:var(--verde)">pois</strong><br><strong style="color:var(--verde)">já que</strong> · <strong style="color:var(--verde)">visto que</strong><br><strong style="color:var(--verde)">uma vez que</strong></div>
+        <div style="font-size:.72rem;color:#888;margin-top:5px">🇲🇽 porque · ya que · dado que</div>
+      </div>
+    </div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
+      <div style="background:#fffbe6;border-radius:9px;padding:10px 12px;border-left:4px solid #92400e">
+        <div style="font-size:.66rem;font-weight:700;color:#92400e;text-transform:uppercase;margin-bottom:7px">✅ Consequência</div>
+        <div style="font-size:.82rem;line-height:2"><strong style="color:#92400e">portanto</strong> · <strong style="color:#92400e">logo</strong><br><strong style="color:#92400e">por isso</strong> · <strong style="color:#92400e">então</strong> · <strong style="color:#92400e">assim</strong></div>
+        <div style="font-size:.72rem;color:#888;margin-top:5px">🇲🇽 por lo tanto · por eso · entonces</div>
+      </div>
+      <div style="background:#e0faf5;border-radius:9px;padding:10px 12px;border-left:4px solid var(--teal)">
+        <div style="font-size:.66rem;font-weight:700;color:var(--teal);text-transform:uppercase;margin-bottom:7px">🔒 Condição</div>
+        <div style="font-size:.82rem;line-height:2"><strong style="color:var(--teal)">desde que</strong> · <strong style="color:var(--teal)">caso</strong><br><strong style="color:var(--teal)">contanto que</strong> · <strong style="color:var(--teal)">se</strong></div>
+        <div style="font-size:.72rem;color:#888;margin-top:5px">🇲🇽 siempre que · en caso de que · si</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- EX 1: CLASSIFICAR -->
+<div class="secao">
+  <div class="sec-hdr ind"><div class="sec-num">1</div><div class="sec-tit">Exercício 1 — Qual função tem esse conector?</div></div>
+  <div class="sec-body">
+    <p style="font-size:.84rem;color:#555;margin-bottom:10px">Identifique a função de cada conector destacado:</p>
+    <div style="display:flex;flex-direction:column;gap:9px">
+      <div style="background:#f7f9ff;border-radius:9px;padding:11px 13px">
+        <div style="font-size:.88rem;margin-bottom:7px">"Estudei muito. <strong style="color:var(--id)">No entanto</strong>, não passei na prova."</div>
+        <div class="opcoes">
+          <button class="op" onclick="resp(this,'e1','x')">Adição</button>
+          <button class="op" onclick="resp(this,'e1','ok')">Contraste</button>
+          <button class="op" onclick="resp(this,'e1','x')">Causa</button>
+          <button class="op" onclick="resp(this,'e1','x')">Consequência</button>
+        </div>
+        <div class="fb" id="fb-e1">✅ Contraste! O resultado foi inesperado — estudou mas não passou. 🇲🇽 "Sin embargo"</div>
+      </div>
+      <div style="background:#f7f9ff;border-radius:9px;padding:11px 13px">
+        <div style="font-size:.88rem;margin-bottom:7px">"O prazo era curto. <strong style="color:#92400e">Portanto</strong>, trabalhamos no fim de semana."</div>
+        <div class="opcoes">
+          <button class="op" onclick="resp(this,'e2','x')">Causa</button>
+          <button class="op" onclick="resp(this,'e2','x')">Contraste</button>
+          <button class="op" onclick="resp(this,'e2','ok')">Consequência</button>
+          <button class="op" onclick="resp(this,'e2','x')">Condição</button>
+        </div>
+        <div class="fb" id="fb-e2">✅ Consequência! O prazo curto resultou em trabalhar no fim de semana. 🇲🇽 "Por lo tanto"</div>
+      </div>
+      <div style="background:#f7f9ff;border-radius:9px;padding:11px 13px">
+        <div style="font-size:.88rem;margin-bottom:7px">"<strong style="color:var(--verde)">Visto que</strong> o cliente confirmou, podemos avançar."</div>
+        <div class="opcoes">
+          <button class="op" onclick="resp(this,'e3','ok')">Causa</button>
+          <button class="op" onclick="resp(this,'e3','x')">Adição</button>
+          <button class="op" onclick="resp(this,'e3','x')">Consequência</button>
+          <button class="op" onclick="resp(this,'e3','x')">Condição</button>
+        </div>
+        <div class="fb" id="fb-e3">✅ Causa — formal! A confirmação do cliente é o motivo para avançar. 🇲🇽 "Dado que"</div>
+      </div>
+      <div style="background:#f7f9ff;border-radius:9px;padding:11px 13px">
+        <div style="font-size:.88rem;margin-bottom:7px">"Aceito o projeto <strong style="color:var(--teal)">desde que</strong> o prazo seja flexível."</div>
+        <div class="opcoes">
+          <button class="op" onclick="resp(this,'e4','x')">Causa</button>
+          <button class="op" onclick="resp(this,'e4','x')">Consequência</button>
+          <button class="op" onclick="resp(this,'e4','x')">Contraste</button>
+          <button class="op" onclick="resp(this,'e4','ok')">Condição</button>
+        </div>
+        <div class="fb" id="fb-e4">✅ Condição! Só aceita SE o prazo for flexível. 🇲🇽 "Siempre que"</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- EX 2: COMPLETAR -->
+<div class="secao">
+  <div class="sec-hdr vm"><div class="sec-num">2</div><div class="sec-tit">Exercício 2 — Complete com o conector certo</div></div>
+  <div class="sec-body">
+    <div style="background:#fff5f5;border-radius:9px;padding:10px 13px;margin-bottom:12px;font-size:.84rem">
+      <strong style="color:var(--vm)">Banco:</strong> embora · portanto · visto que · além disso · apesar de · por isso · já que · no entanto
+    </div>
+    <div style="display:flex;flex-direction:column;gap:7px">
+      <div class="frase">"<input class="lc" id="c1" size="10" placeholder="___"> estar com fome, não tinha nada na geladeira." <em style="font-size:.76rem;color:#888">(concessão + infinitivo)</em></div>
+      <div class="frase">"Cheguei tarde. <input class="lc" id="c2" size="10" placeholder="___">, perdi o início da apresentação." <em style="font-size:.76rem;color:#888">(consequência)</em></div>
+      <div class="frase">"<input class="lc" id="c3" size="12" placeholder="___"> você já sabe o caminho, pode ir na frente." <em style="font-size:.76rem;color:#888">(causa informal)</em></div>
+      <div class="frase">"Ela é competente. <input class="lc" id="c4" size="12" placeholder="___">, fala três idiomas." <em style="font-size:.76rem;color:#888">(adição)</em></div>
+      <div class="frase">"O relatório estava pronto. <input class="lc" id="c5" size="12" placeholder="___">, o cliente pediu mudanças." <em style="font-size:.76rem;color:#888">(contraste)</em></div>
+      <div class="frase">"<input class="lc" id="c6" size="10" placeholder="___"> o prazo seja curto, faremos o possível." <em style="font-size:.76rem;color:#888">(concessão + subjuntivo)</em></div>
+      <div class="frase">"<input class="lc" id="c7" size="12" placeholder="___"> o projeto foi aprovado, podemos contratar a equipe." <em style="font-size:.76rem;color:#888">(causa formal)</em></div>
+      <div class="frase">"O preço era alto. <input class="lc" id="c8" size="10" placeholder="___">, compramos." <em style="font-size:.76rem;color:#888">(contraste)</em></div>
+    </div>
+    <button class="btn-ver" onclick="verificarC()">✓ Verificar</button>
+    <div class="fb" id="fb-c"></div>
+  </div>
+</div>
+
+<!-- EX 3: O PAVÃO -->
+<div class="secao">
+  <div class="sec-hdr ind"><div class="sec-num">📖</div><div class="sec-tit">"O Pavão" — Rubem Braga · Análise de conectores</div></div>
+  <div class="sec-body">
+    <div class="poema-box">
+      <div style="font-size:.66rem;font-weight:700;color:rgba(255,255,255,.5);text-transform:uppercase;margin-bottom:9px">📖 Rubem Braga — O Pavão (adaptado)</div>
+      <div class="poema-txt">
+        Eu considerei a glória de um pavão ostentando o esplendor de suas cores — é um luxo imperial.<br><br>
+        <span class="pdest">Mas</span> andei lendo livros, e descobri que aquelas cores todas não existem na pena do pavão. Não há pigmentos. O que há são minúsculas bolhas d'água em que a luz se fragmenta, como em um prisma.<br><br>
+        O pavão não tem aquelas cores: ele simplesmente arma uma certa estrutura de queratina e ar, e a luz, <span class="pdest">portanto</span>, se encarrega de fazer o milagre.<br><br>
+        <span class="pdest">Apesar disso</span>, o pavão continua sendo belo. <span class="pdest">Embora</span> as cores não existam "de verdade", elas existem para os nossos olhos e nos encantam.<br><br>
+        <span class="pdest">Visto que</span> a beleza nasce de uma ilusão, será que toda beleza é assim — uma armação de estruturas que a luz completa?
+      </div>
+    </div>
+    <p style="font-size:.84rem;font-weight:600;color:var(--id);margin-bottom:9px">🔍 Identifique os 5 conectores em destaque e complete a tabela:</p>
+    <table style="width:100%;font-size:.83rem;border-collapse:collapse;margin-bottom:14px;border-radius:9px;overflow:hidden">
+      <thead><tr style="background:var(--id)"><th style="padding:7px 10px;color:#fff;text-align:left">Conector</th><th style="padding:7px 10px;color:#fff;text-align:left">Função</th><th style="padding:7px 10px;color:#fff;text-align:left">🇲🇽 Equivalente</th></tr></thead>
+      <tbody>
+        <tr><td style="padding:7px 10px;font-weight:700;color:var(--id)">Mas</td><td style="padding:7px 10px"><input type="text" style="border:none;border-bottom:1.5px solid var(--i);font-family:'DM Sans',sans-serif;font-size:.83rem;width:100%;outline:none;color:var(--id)" placeholder="..."></td><td style="padding:7px 10px"><input type="text" style="border:none;border-bottom:1.5px solid #a5b4fc;font-family:'DM Sans',sans-serif;font-size:.83rem;width:100%;outline:none" placeholder="..."></td></tr>
+        <tr style="background:#f5f3ff"><td style="padding:7px 10px;font-weight:700;color:var(--id)">portanto</td><td style="padding:7px 10px"><input type="text" style="border:none;border-bottom:1.5px solid var(--i);font-family:'DM Sans',sans-serif;font-size:.83rem;width:100%;outline:none;color:var(--id)" placeholder="..."></td><td style="padding:7px 10px"><input type="text" style="border:none;border-bottom:1.5px solid #a5b4fc;font-family:'DM Sans',sans-serif;font-size:.83rem;width:100%;outline:none" placeholder="..."></td></tr>
+        <tr><td style="padding:7px 10px;font-weight:700;color:var(--id)">Apesar disso</td><td style="padding:7px 10px"><input type="text" style="border:none;border-bottom:1.5px solid var(--i);font-family:'DM Sans',sans-serif;font-size:.83rem;width:100%;outline:none;color:var(--id)" placeholder="..."></td><td style="padding:7px 10px"><input type="text" style="border:none;border-bottom:1.5px solid #a5b4fc;font-family:'DM Sans',sans-serif;font-size:.83rem;width:100%;outline:none" placeholder="..."></td></tr>
+        <tr style="background:#f5f3ff"><td style="padding:7px 10px;font-weight:700;color:var(--id)">Embora</td><td style="padding:7px 10px"><input type="text" style="border:none;border-bottom:1.5px solid var(--i);font-family:'DM Sans',sans-serif;font-size:.83rem;width:100%;outline:none;color:var(--id)" placeholder="..."></td><td style="padding:7px 10px"><input type="text" style="border:none;border-bottom:1.5px solid #a5b4fc;font-family:'DM Sans',sans-serif;font-size:.83rem;width:100%;outline:none" placeholder="..."></td></tr>
+        <tr><td style="padding:7px 10px;font-weight:700;color:var(--id)">Visto que</td><td style="padding:7px 10px"><input type="text" style="border:none;border-bottom:1.5px solid var(--i);font-family:'DM Sans',sans-serif;font-size:.83rem;width:100%;outline:none;color:var(--id)" placeholder="..."></td><td style="padding:7px 10px"><input type="text" style="border:none;border-bottom:1.5px solid #a5b4fc;font-family:'DM Sans',sans-serif;font-size:.83rem;width:100%;outline:none" placeholder="..."></td></tr>
+      </tbody>
+    </table>
+    <p style="font-size:.84rem;font-weight:600;color:var(--id);margin-bottom:8px">💬 Você concorda com Rubem Braga? Use conectores na sua resposta!</p>
+    <textarea class="area" rows="3" placeholder="Na minha opinião, embora... / Além disso... / Portanto..."></textarea>
+  </div>
+</div>
+
+<!-- EX 4: EMBORA + SUBJUNTIVO -->
+<div class="secao">
+  <div class="sec-hdr vm"><div class="sec-num">⚠️</div><div class="sec-tit">Atenção — Embora + Subjuntivo!</div></div>
+  <div class="sec-body">
+    <div style="background:#fff5f5;border-radius:9px;padding:12px 14px;border:2px solid var(--vm);margin-bottom:12px">
+      <div style="font-size:.7rem;font-weight:700;color:var(--vm);text-transform:uppercase;margin-bottom:8px">⚠️ Regra fundamental</div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;font-size:.86rem">
+        <div style="background:#fdecea;border-radius:7px;padding:8px 11px">❌ "<strong style="color:var(--vm)">Embora</strong> eu est<strong style="color:var(--vm)">ou</strong> cansado..." (indicativo)<br>❌ "<strong style="color:var(--vm)">Embora</strong> ela fal<strong style="color:var(--vm)">a</strong> muito..." </div>
+        <div style="background:#e8f5ee;border-radius:7px;padding:8px 11px">✅ "<strong style="color:var(--verde)">Embora</strong> eu est<strong style="color:var(--verde)">eja</strong> cansado..." (subj.)<br>✅ "<strong style="color:var(--verde)">Embora</strong> ela fal<strong style="color:var(--verde)">e</strong> muito..."</div>
+      </div>
+    </div>
+    <p style="font-size:.84rem;font-weight:600;color:var(--vm);margin-bottom:9px">Corrija as frases erradas:</p>
+    <div style="display:flex;flex-direction:column;gap:7px">
+      <div class="frase vm">❌ "Embora ela <strong style="color:var(--vm)">está</strong> doente, foi trabalhar."<br>✅ Correto: <input class="lc" id="sub1" size="40" placeholder="Embora ela ___..."></div>
+      <div class="frase vm">❌ "Embora o projeto <strong style="color:var(--vm)">é</strong> difícil, conseguimos."<br>✅ Correto: <input class="lc" id="sub2" size="40" placeholder="Embora o projeto ___..."></div>
+      <div class="frase vm">❌ "Embora eles não <strong style="color:var(--vm)">têm</strong> dinheiro, viajaram."<br>✅ Correto: <input class="lc" id="sub3" size="40" placeholder="Embora eles não ___..."></div>
+    </div>
+    <button class="btn-ver" onclick="verificarSub()">✓ Verificar</button>
+    <div class="fb" id="fb-sub"></div>
+  </div>
+</div>
+
+<!-- QUIZ -->
+<div class="secao">
+  <div class="sec-hdr game"><div class="sec-num">🎯</div><div class="sec-tit">Quiz — Conectores em 10 segundos!</div></div>
+  <div class="sec-body">
+    <div class="quiz-wrap">
+      <div class="quiz-topo">
+        <div class="quiz-score">🔗 <span id="q-score">0</span> pts</div>
+        <div class="quiz-timer" id="q-timer">⏱ 10s</div>
+        <div style="color:rgba(255,255,255,.6);font-size:.78rem"><span id="q-num">1</span>/10</div>
+      </div>
+      <div class="quiz-pergunta" id="q-perg">Clique em "Começar" para jogar!</div>
+      <div class="quiz-ops">
+        <button class="quiz-op" onclick="respQuiz(0)" id="qop0" disabled></button>
+        <button class="quiz-op" onclick="respQuiz(1)" id="qop1" disabled></button>
+        <button class="quiz-op" onclick="respQuiz(2)" id="qop2" disabled></button>
+        <button class="quiz-op" onclick="respQuiz(3)" id="qop3" disabled></button>
+      </div>
+      <div class="quiz-fb" id="q-fb"></div>
+      <div class="quiz-prog"><div class="quiz-prog-bar" id="q-prog" style="width:0%"></div></div>
+    </div>
+    <button class="quiz-btn" id="quiz-start-btn" onclick="iniciarQuiz()">▶ Começar Quiz</button>
+  </div>
+</div>
+
+<!-- PRODUÇÃO -->
+<div class="secao">
+  <div class="sec-hdr ind"><div class="sec-num">✍️</div><div class="sec-tit">Produção — Mini-texto argumentativo</div></div>
+  <div class="sec-body">
+    <div style="background:#eef2ff;border-radius:10px;padding:13px 15px;border:2px solid var(--i);margin-bottom:14px;text-align:center;font-size:.9rem;color:#333;font-style:italic">
+      "<strong style="color:var(--id)">Por que aprender português brasileiro?</strong>"<br>
+      <span style="font-size:.78rem;color:#888">Escreva 8–10 linhas usando mínimo 5 conectores diferentes — um de cada categoria!</span>
+    </div>
+    <div style="background:#f5f3ff;border-radius:9px;padding:10px 13px;margin-bottom:12px;font-size:.82rem;color:var(--id)">
+      <strong>Checklist:</strong> ➕ adição (além disso) · ⚡ contraste (embora/apesar de) · 🔍 causa (visto que/já que) · ✅ consequência (portanto/por isso) · 🔒 condição (desde que)
+    </div>
+    <textarea class="area" rows="10" placeholder="O português brasileiro é importante por várias razões. Em primeiro lugar...&#10;&#10;Além disso...&#10;&#10;Embora...&#10;&#10;Visto que...&#10;&#10;Portanto...&#10;&#10;Desde que..."></textarea>
+  </div>
+</div>
+
+</div>
+<footer>Enlace Brasil · Instituto de Língua e Cultura Brasileira · Ciudad de México · 📱 5573217496</footer>
+
+<script>
+let vozPT=null,veloc=.72,btnAt=null;
+async function carregarVoz(){return new Promise(res=>{if(!window.speechSynthesis){res(null);return;}const v=window.speechSynthesis.getVoices();res(v.find(x=>x.lang.startsWith('pt-BR'))||v.find(x=>x.lang.startsWith('pt'))||v[0]);});}
+if(window.speechSynthesis)window.speechSynthesis.onvoiceschanged=async()=>{vozPT=await carregarVoz();};
+async function falar(txt,btn){if(!window.speechSynthesis)return;if(!vozPT)vozPT=await carregarVoz();window.speechSynthesis.cancel();if(btnAt){btnAt.textContent='🔊';btnAt.classList.remove('sp');}const u=new SpeechSynthesisUtterance(txt);u.voice=vozPT;u.lang='pt-BR';u.rate=veloc;u.pitch=1.05;if(btn){btnAt=btn;btn.textContent='⏸';btn.classList.add('sp');}u.onend=()=>{if(btn){btn.textContent='🔊';btn.classList.remove('sp');}btnAt=null;};window.speechSynthesis.speak(u);}
+function resp(btn,grupo,tipo){
+  const btns=btn.parentElement.querySelectorAll('.op');btns.forEach(b=>{b.classList.remove('ok','no');b.disabled=false;});
+  btn.classList.add(tipo==='ok'?'ok':'no');btns.forEach(b=>b.disabled=true);
+  const fb=document.getElementById('fb-'+grupo);
+  if(tipo!=='ok'){fb.textContent='❌ Tente de novo!';fb.className='fb no';btn.disabled=true;btns.forEach(b=>b.disabled=false);btn.disabled=true;}
+  else{fb.className='fb ok';}
+}
+function verificarC(){
+  const r=[{id:'c1',ok:['apesar de']},{id:'c2',ok:['portanto','por isso']},{id:'c3',ok:['já que']},{id:'c4',ok:['além disso']},{id:'c5',ok:['no entanto','porém']},{id:'c6',ok:['embora']},{id:'c7',ok:['visto que','uma vez que']},{id:'c8',ok:['no entanto','porém','apesar disso']}];
+  let ok=0;r.forEach(x=>{const v=document.getElementById(x.id).value.trim().toLowerCase();if(x.ok.some(o=>v.includes(o)))ok++;});
+  const fb=document.getElementById('fb-c');
+  fb.textContent=ok>=6?`✅ ${ok}/8 — Apesar de · portanto · já que · além disso · no entanto · embora · visto que · no entanto`:`❌ ${ok}/8 — Gabarito: apesar de · portanto · já que · além disso · no entanto · embora · visto que · no entanto`;
+  fb.className=ok>=6?'fb ok':'fb no';
+}
+function verificarSub(){
+  const r=[{id:'sub1',ok:['esteja']},{id:'sub2',ok:['seja']},{id:'sub3',ok:['tenham']}];
+  let ok=0;r.forEach(x=>{if(document.getElementById(x.id).value.toLowerCase().includes(x.ok[0]))ok++;});
+  const fb=document.getElementById('fb-sub');
+  fb.textContent=ok===3?'✅ Perfeito! esteja · seja · tenham — todos no subjuntivo!':'❌ Gabarito: esteja · seja · tenham (subjuntivo presente!)';
+  fb.className=ok===3?'fb ok':'fb no';
+}
+const quizPergs=[
+  {p:'"Embora" exige qual modo verbal?',ops:['Indicativo','Subjuntivo','Infinitivo','Imperativo'],c:1},
+  {p:'"Portanto" = ?',ops:['Sin embargo','Además','Por lo tanto','Ya que'],c:2},
+  {p:'Qual é de ADIÇÃO?',ops:['No entanto','Visto que','Portanto','Além disso'],c:3},
+  {p:'"Apesar de" + ___?',ops:['Subjuntivo','Indicativo','Infinitivo ou substantivo','Futuro'],c:2},
+  {p:'"Visto que" — qual registro?',ops:['Coloquial / informal','Formal / escrito','Gíria','Regional'],c:1},
+  {p:'"Por isso" = ?',ops:['Por lo tanto / Por eso','Sin embargo','Ya que','Además'],c:0},
+  {p:'Qual frase está CORRETA?',ops:['Embora ela está cansada.','Embora ela esteja cansada.','Embora ela esteja cansada!. ','Embora ela está cansada!'],c:1},
+  {p:'"Já que você vai, traz pão." — qual função?',ops:['Consequência','Condição','Causa','Contraste'],c:2},
+  {p:'"Desde que" = ?',ops:['Dado que','Siempre que / Con tal que','Sin embargo','Por lo tanto'],c:1},
+  {p:'Qual é o conector de CONSEQUÊNCIA mais formal?',ops:['Então','Por isso','Portanto / Logo','Mas'],c:2},
+];
+let qCur=0,qScore=0,qTimer=null,qSecs=0,qAtivo=false;
+function iniciarQuiz(){qCur=0;qScore=0;qAtivo=true;document.getElementById('q-score').textContent='0';document.getElementById('quiz-start-btn').textContent='↺ Reiniciar';mostrarPergunta();}
+function mostrarPergunta(){if(qCur>=quizPergs.length){fimQuiz();return;}const p=quizPergs[qCur];document.getElementById('q-perg').textContent=p.p;document.getElementById('q-num').textContent=qCur+1;document.getElementById('q-prog').style.width=`${(qCur/quizPergs.length)*100}%`;document.getElementById('q-fb').textContent='';for(let i=0;i<4;i++){const b=document.getElementById('qop'+i);b.textContent=p.ops[i];b.disabled=false;b.classList.remove('certa','errada');b.style.display='block';}iniciarTimer();}
+function iniciarTimer(){clearInterval(qTimer);qSecs=10;atualizarTimer();qTimer=setInterval(()=>{qSecs--;atualizarTimer();if(qSecs<=0){clearInterval(qTimer);tempoEsgotado();}},1000);}
+function atualizarTimer(){const el=document.getElementById('q-timer');el.textContent=`⏱ ${qSecs}s`;el.classList.toggle('urgente',qSecs<=3);}
+function tempoEsgotado(){document.getElementById('q-fb').textContent='⏰ Resposta: '+quizPergs[qCur].ops[quizPergs[qCur].c];document.getElementById('qop'+quizPergs[qCur].c).classList.add('certa');for(let i=0;i<4;i++)document.getElementById('qop'+i).disabled=true;setTimeout(()=>{qCur++;mostrarPergunta();},1800);}
+function respQuiz(idx){if(!qAtivo)return;clearInterval(qTimer);const certa=quizPergs[qCur].c;for(let i=0;i<4;i++)document.getElementById('qop'+i).disabled=true;if(idx===certa){document.getElementById('qop'+idx).classList.add('certa');const pts=qSecs>=8?3:qSecs>=5?2:1;qScore+=pts;document.getElementById('q-score').textContent=qScore;document.getElementById('q-fb').textContent=`✅ Correto! +${pts} pts`;}else{document.getElementById('qop'+idx).classList.add('errada');document.getElementById('qop'+certa).classList.add('certa');document.getElementById('q-fb').textContent='❌ Errou!';}setTimeout(()=>{qCur++;mostrarPergunta();},1500);}
+function fimQuiz(){qAtivo=false;document.getElementById('q-perg').textContent=`🔗 Fim! ${qScore}/${quizPergs.length*3} pontos!`;document.getElementById('q-fb').textContent=qScore>=25?'🌟 Mestre dos conectores!':qScore>=18?'👍 Muito bem!':'💪 Revise embora+subjuntivo e tente de novo!';document.getElementById('q-prog').style.width='100%';for(let i=0;i<4;i++)document.getElementById('qop'+i).style.display='none';}
+</script>
+</body>
+</html>
