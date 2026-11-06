@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Aula 15B · Direitos do Consumidor · B1 · Enlace Brasil</title>
+<style>
+:root{--azul:#0d3b6e;--teal:#1a9a8a;--ouro:#f5c842;--claro:#f4f8fb;--verm:#d9534f;--verde:#2e9e5b}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:"Segoe UI",Roboto,Arial,sans-serif;background:var(--claro);color:#1d2b3a;min-height:100vh;display:flex;flex-direction:column}
+header{background:var(--azul);color:#fff;padding:10px 20px;display:flex;align-items:center;justify-content:space-between;gap:10px}
+.logo{display:flex;align-items:center;gap:10px;font-weight:700}
+.logo .c{width:38px;height:38px;border-radius:50%;background:#fff;color:var(--azul);display:flex;align-items:center;justify-content:center;font-size:20px}
+.logo small{display:block;font-weight:400;font-size:11px;opacity:.85}
+.tag{background:var(--ouro);color:var(--azul);font-weight:700;padding:4px 10px;border-radius:20px;font-size:13px}
+.nav-bar{display:flex;gap:6px;flex-wrap:wrap;padding:8px 16px;background:#fff;border-bottom:3px solid var(--teal)}
+.nav-bar button{border:none;background:#e6eef5;color:var(--azul);padding:6px 10px;border-radius:16px;cursor:pointer;font-size:12px;font-weight:600}
+.nav-bar button.on{background:var(--teal);color:#fff}
+main{flex:1;max-width:1050px;width:100%;margin:0 auto;padding:22px 18px 90px}
+.slide{display:none;animation:fade .35s}
+.slide.on{display:block}
+@keyframes fade{from{opacity:0;transform:translateY(8px)}to{opacity:1}}
+h1{color:var(--azul);font-size:34px;margin-bottom:8px}
+h2{color:var(--azul);font-size:26px;margin-bottom:6px}
+h2 .n{background:var(--ouro);border-radius:8px;padding:0 8px;margin-right:6px}
+.sub{color:var(--teal);font-weight:600;margin-bottom:18px}
+.card{background:#fff;border-radius:14px;padding:18px;box-shadow:0 2px 10px rgba(13,59,110,.08);margin-bottom:14px}
+.dica{background:#fff8dc;border-left:5px solid var(--ouro);padding:10px 14px;border-radius:8px;font-size:14px;margin:12px 0}
+.grid{display:grid;gap:12px;grid-template-columns:repeat(auto-fill,minmax(220px,1fr))}
+.btn{background:var(--teal);color:#fff;border:none;padding:10px 16px;border-radius:10px;font-weight:700;cursor:pointer;font-size:15px}
+.btn.az{background:var(--azul)}.btn.ou{background:var(--ouro);color:var(--azul)}
+.btn:hover{filter:brightness(1.08)}
+.au{border:none;background:#e6f5f3;border-radius:50%;width:32px;height:32px;cursor:pointer;font-size:15px;flex-shrink:0}
+.hero{background:linear-gradient(135deg,var(--azul),var(--teal));color:#fff;border-radius:18px;padding:40px 30px;text-align:center}
+.hero h1{color:#fff;font-size:40px}
+.hero .big{font-size:70px}
+.hero p{font-size:18px;opacity:.95;margin-top:8px}
+.objs{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin-top:20px}
+.objs span{background:rgba(255,255,255,.18);padding:6px 12px;border-radius:20px;font-size:14px}
+/* aquecimento */
+.sit{cursor:pointer;text-align:center;transition:.2s;border:2px solid transparent}
+.sit:hover{border-color:var(--teal)}
+.sit .e{font-size:38px}.sit .v{margin-top:8px;font-weight:700;color:var(--teal);font-size:20px}
+/* flip */
+.flip{perspective:900px;height:170px;cursor:pointer}
+.flip .in{position:relative;width:100%;height:100%;transition:transform .55s;transform-style:preserve-3d}
+.flip.vira .in{transform:rotateY(180deg)}
+.flip .f,.flip .b{position:absolute;inset:0;backface-visibility:hidden;border-radius:14px;padding:14px;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center}
+.flip .f{background:#fff;border:2px solid var(--teal);box-shadow:0 2px 8px rgba(0,0,0,.06)}
+.flip .f .w{font-size:21px;font-weight:700;color:var(--azul)}
+.flip .f .ic{font-size:34px}
+.flip .b{background:var(--azul);color:#fff;transform:rotateY(180deg);font-size:14px}
+.flip .b .es{color:var(--ouro);font-weight:700;font-size:17px;margin-bottom:6px}
+/* falsos amigos */
+.fa{display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.fa .pt{font-size:20px;font-weight:700;color:var(--azul);min-width:140px}
+.fa .rev{flex:1;min-width:200px;background:#f0f4f8;border-radius:8px;padding:8px 12px;cursor:pointer;color:#7a8a9a}
+.fa .rev.ok{background:#e6f5ee;color:#1d2b3a}
+/* instituições */
+.inst{border-top:6px solid var(--teal);cursor:pointer}
+.inst h3{color:var(--azul);font-size:22px;display:flex;align-items:center;gap:8px}
+.inst .full{font-size:13px;color:var(--teal);font-weight:600;margin:4px 0 8px}
+.inst .mais{display:none;font-size:14px;margin-top:8px;line-height:1.5}
+.inst.aberto .mais{display:block}
+.inst .hint{font-size:12px;color:#8899aa;margin-top:6px}
+/* jogo */
+.placar{display:flex;gap:14px;align-items:center;margin-bottom:12px;flex-wrap:wrap}
+.placar .pt{background:var(--azul);color:#fff;padding:6px 14px;border-radius:20px;font-weight:700}
+.cena{font-size:20px;line-height:1.5;min-height:80px}
+.opc{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:10px;margin-top:14px}
+.opc button{padding:14px;border-radius:12px;border:2px solid var(--azul);background:#fff;color:var(--azul);font-weight:700;font-size:16px;cursor:pointer}
+.opc button.certo{background:var(--verde);border-color:var(--verde);color:#fff}
+.opc button.errado{background:var(--verm);border-color:var(--verm);color:#fff}
+.fb{margin-top:12px;font-size:15px;min-height:24px}
+.barra{height:8px;background:#e1e8ee;border-radius:6px;overflow:hidden;flex:1;min-width:120px}
+.barra div{height:100%;background:var(--ouro);transition:width .3s}
+/* VF */
+.vf{display:flex;gap:10px;margin-top:10px}
+.vf button{flex:1;padding:12px;font-size:17px;font-weight:700;border-radius:10px;border:none;cursor:pointer}
+.vf .v{background:#e6f5ee;color:var(--verde)}.vf .fx{background:#fbeaea;color:var(--verm)}
+.lei{font-size:12px;color:#8899aa;margin-top:6px}
+/* registro */
+.escada{display:flex;flex-direction:column;gap:8px}
+.degrau{display:flex;align-items:center;gap:10px;padding:10px 14px;border-radius:10px;background:#fff}
+.degrau .lv{font-size:11px;font-weight:700;padding:3px 8px;border-radius:10px;color:#fff;min-width:78px;text-align:center}
+/* builder */
+select{padding:8px;border-radius:8px;border:2px solid #cfdbe5;font-size:15px;max-width:100%}
+.monta{display:grid;gap:10px;grid-template-columns:1fr}
+.monta label{font-size:13px;font-weight:700;color:var(--teal)}
+.texto{background:#fdfdf7;border:2px dashed var(--ouro);border-radius:12px;padding:16px;font-size:16px;line-height:1.6;white-space:pre-wrap;margin-top:12px}
+/* SAC */
+.fone{max-width:520px;margin:0 auto;background:#14202e;border-radius:28px;padding:18px;color:#fff}
+.fone .tela{background:#0b1520;border-radius:18px;padding:14px;min-height:300px;display:flex;flex-direction:column;gap:8px;max-height:420px;overflow-y:auto}
+.msg{padding:9px 12px;border-radius:12px;max-width:86%;font-size:15px;line-height:1.4}
+.msg.sac{background:#1f3b57;align-self:flex-start}
+.msg.eu{background:var(--teal);align-self:flex-end}
+.msg.sis{background:transparent;color:var(--ouro);align-self:center;font-size:13px;font-style:italic}
+.resp{display:flex;flex-direction:column;gap:8px;margin-top:12px}
+.resp button{background:#263a50;color:#fff;border:1px solid #3d5872;padding:10px;border-radius:10px;cursor:pointer;text-align:left;font-size:14px}
+.resp button:hover{background:#30506e}
+/* roleplay */
+.rp{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.rp .card h3{color:var(--azul);margin-bottom:6px}
+.timer{font-size:48px;font-weight:800;color:var(--azul);text-align:center;font-variant-numeric:tabular-nums}
+/* ditado */
+.dit{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-bottom:10px}
+.dit input{flex:1;min-width:200px;padding:10px;border-radius:8px;border:2px solid #cfdbe5;font-size:15px}
+.dit .gab{display:none;width:100%;background:#e6f5ee;padding:8px 12px;border-radius:8px;font-weight:600}
+.dit .gab.ok{display:block}
+.pager{position:fixed;bottom:0;left:0;right:0;background:#fff;border-top:1px solid #dde6ee;display:flex;justify-content:space-between;align-items:center;padding:10px 18px;z-index:5}
+.pager span{font-size:13px;color:#667}
+@media(max-width:640px){
+ h1{font-size:26px}.hero h1{font-size:28px}.hero .big{font-size:50px}h2{font-size:21px}
+ .rp{grid-template-columns:1fr}.cena{font-size:17px}.nav-bar button{font-size:11px;padding:5px 8px}
+ header .tag{display:none}.flip{height:160px}
+}
+</style>
+</head>
+<body>
+<header>
+ <div class="logo"><div class="c">🇧🇷</div><div>Enlace Brasil<small>Escuela de Idioma Português para todo el mundo</small></div></div>
+ <div class="tag">B1 · Aula 15B ★ novo</div>
+</header>
+<div class="nav-bar" id="nav"></div>
+
+<main>
+
+<!-- 0 CAPA -->
+<section class="slide" data-t="Início">
+ <div class="hero">
+  <div class="big">🧾⚖️📞</div>
+  <h1>Deu ruim na compra?</h1>
+  <p><b>Aula 15B · Direitos e consumo</b><br>Serviços e direitos do consumidor: PROCON, SAC, SPC e Reclame Aqui</p>
+  <div class="objs">
+   <span>🗣️ Reclamar com educação e firmeza</span><span>📚 Vocabulário do consumo</span><span>🏛️ Saber a quem recorrer</span><span>⚖️ Conhecer seus direitos (CDC)</span>
+  </div>
+ </div>
+ <div class="dica">💡 <b>Professor(a):</b> aula 100% prática. Comece perguntando: <i>“Alguém já teve problema com uma compra no Brasil ou no México? Como resolveu?”</i></div>
+</section>
+
+<!-- 1 AQUECIMENTO -->
+<section class="slide" data-t="Aquecimento">
+ <h2><span class="n">1</span>Já aconteceu com você?</h2>
+ <p class="sub">Clique no cartão cada vez que alguém da turma disser “Já aconteceu comigo!” 🙋</p>
+ <div class="grid" id="sits"></div>
+ <div class="dica">🎤 Para cada cartão com votos, peça um mini-relato no passado: <i>“O que aconteceu? O que você fez? Resolveu?”</i> (revisão de pretérito perfeito × imperfeito)</div>
+ <button class="btn ou" onclick="zeraSits()">Zerar votos</button>
+</section>
+
+<!-- 2 VOCABULÁRIO -->
+<section class="slide" data-t="Vocabulário">
+ <h2><span class="n">2</span>Vocabulário essencial</h2>
+ <p class="sub">Clique no cartão para virar · 🔊 para ouvir</p>
+ <div class="grid" id="vocab"></div>
+</section>
+
+<!-- 3 FALSOS AMIGOS -->
+<section class="slide" data-t="Cuidado!">
+ <h2><span class="n">3</span>Cuidado, hispanohablante! ⚠️</h2>
+ <p class="sub">Palavras que enganam. Adivinhe o significado e clique para revelar.</p>
+ <div id="falsos"></div>
+</section>
+
+<!-- 4 QUEM É QUEM -->
+<section class="slide" data-t="Quem é quem">
+ <h2><span class="n">4</span>Quem é quem na defesa do consumidor</h2>
+ <p class="sub">Clique em cada cartão para saber mais</p>
+ <div class="grid" id="insts"></div>
+ <div class="card" style="background:var(--azul);color:#fff">
+  <b style="color:var(--ouro)">🪜 A ordem natural:</b> &nbsp; 1️⃣ SAC da empresa (anote o protocolo!) → 2️⃣ Reclame Aqui / consumidor.gov.br → 3️⃣ PROCON → 4️⃣ Juizado Especial Cível
+ </div>
+</section>
+
+<!-- 5 JOGO -->
+<section class="slide" data-t="Jogo: a quem recorro?">
+ <h2><span class="n">5</span>Jogo: A quem eu recorro? 🎯</h2>
+ <p class="sub">Leia a situação e escolha o melhor caminho</p>
+ <div class="card">
+  <div class="placar"><span class="pt" id="jPt">0 pontos</span><div class="barra"><div id="jBar" style="width:0"></div></div><span id="jN"></span></div>
+  <div class="cena" id="jCena"></div>
+  <div class="opc" id="jOpc"></div>
+  <div class="fb" id="jFb"></div>
+  <div style="margin-top:12px;display:flex;gap:8px"><button class="btn az" id="jProx" onclick="jProx()" style="display:none">Próxima ➜</button><button class="btn ou" onclick="jIni()">Recomeçar</button></div>
+ </div>
+</section>
+
+<!-- 6 DIREITOS -->
+<section class="slide" data-t="Seus direitos">
+ <h2><span class="n">6</span>Verdade ou mito? ⚖️</h2>
+ <p class="sub">Código de Defesa do Consumidor (CDC – Lei 8.078/1990). Vote em equipe!</p>
+ <div class="card">
+  <div class="placar"><span class="pt" id="vPt">0 / 0</span><span id="vN"></span></div>
+  <div class="cena" id="vQ"></div>
+  <div class="vf" id="vBt"><button class="v" onclick="vRes(true)">✅ Verdade</button><button class="fx" onclick="vRes(false)">❌ Mito</button></div>
+  <div class="fb" id="vFb"></div>
+  <div class="lei" id="vLei"></div>
+  <div style="margin-top:12px;display:flex;gap:8px"><button class="btn az" id="vProx" onclick="vProx()" style="display:none">Próxima ➜</button><button class="btn ou" onclick="vIni()">Recomeçar</button></div>
+ </div>
+ <div class="dica">📝 Resumo para copiar: <b>7 dias</b> para desistir de compra online · <b>30 dias</b> (não duráveis) / <b>90 dias</b> (duráveis) para reclamar de defeito · a empresa tem <b>30 dias</b> para consertar.</div>
+</section>
+
+<!-- 7 COMO RECLAMAR -->
+<section class="slide" data-t="Como reclamar">
+ <h2><span class="n">7</span>Como reclamar: do 😤 ao 🎩</h2>
+ <p class="sub">Mesma ideia, registros diferentes. Qual funciona melhor no SAC?</p>
+ <div class="escada" id="escada"></div>
+ <div class="card" style="margin-top:14px">
+  <h3 style="color:var(--azul);margin-bottom:8px">🧰 Kit de frases do consumidor</h3>
+  <div id="kit"></div>
+ </div>
+ <div class="dica">💡 O <b>futuro do pretérito</b> (gostaria, poderia, queria) é o melhor amigo de quem reclama: educado, mas firme.</div>
+</section>
+
+<!-- 8 MONTE A RECLAMAÇÃO -->
+<section class="slide" data-t="Monte a reclamação">
+ <h2><span class="n">8</span>Monte sua reclamação no Reclame Aqui ✍️</h2>
+ <p class="sub">Escolha as peças e veja o texto pronto. Depois, leia em voz alta!</p>
+ <div class="card monta">
+  <div><label>Título</label><br><select id="m1"></select></div>
+  <div><label>O que comprei / contratei</label><br><select id="m2"></select></div>
+  <div><label>O problema</label><br><select id="m3"></select></div>
+  <div><label>O que já fiz</label><br><select id="m4"></select></div>
+  <div><label>O que eu quero</label><br><select id="m5"></select></div>
+  <div style="display:flex;gap:8px;flex-wrap:wrap"><button class="btn" onclick="monta()">Gerar texto</button><button class="btn az" onclick="falar(document.getElementById('mTxt').innerText)">🔊 Ouvir</button><button class="btn ou" onclick="sorteiaM()">🎲 Sortear</button></div>
+  <div class="texto" id="mTxt">Seu texto aparece aqui…</div>
+ </div>
+ <div class="dica">🔍 Desafio: encontre no texto 1 conector, 1 verbo no pretérito perfeito e 1 verbo no futuro do pretérito.</div>
+ <div class="card" style="border-top:6px solid var(--ouro)">
+  <h3 style="color:var(--azul);margin-bottom:6px">🕵️ Detetive do consumidor: reclamações reais!</h3>
+  <p style="line-height:1.6">Entre no Reclame Aqui, pesquise uma empresa (uma loja, um banco, uma companhia aérea, um app de entrega…) e escolha <b>uma reclamação real</b>. Em duplas, respondam:</p>
+  <ol style="margin:10px 0 12px 22px;line-height:1.8">
+   <li>Qual é o <b>título</b> da reclamação? Ele é chamativo?</li>
+   <li>Qual foi o <b>problema</b>? O que o consumidor <b>já tinha feito</b> antes de reclamar?</li>
+   <li>O que o consumidor <b>quer</b>: troca, reembolso, estorno, cancelamento…?</li>
+   <li>Qual é o <b>tom</b>: grosso, informal, neutro ou formal? (veja a escada da tela 7)</li>
+   <li>A empresa <b>respondeu</b>? O problema foi resolvido? Qual é a <b>nota</b> da empresa?</li>
+   <li>Copiem <b>3 palavras ou expressões novas</b> e compartilhem com a turma.</li>
+  </ol>
+  <a class="btn" style="display:inline-block;text-decoration:none" href="https://www.reclameaqui.com.br/" target="_blank" rel="noopener">🔗 Abrir o Reclame Aqui</a>
+  <div class="dica" style="margin-bottom:0">💡 <b>Professor(a):</b> compare duas empresas do mesmo setor (por exemplo, duas companhias aéreas): qual tem melhor reputação? Por quê? Bom gancho para opinião e comparativos.</div>
+ </div>
+</section>
+
+<!-- 9 SIMULADOR SAC -->
+<section class="slide" data-t="Simulador SAC">
+ <h2><span class="n">9</span>Simulador de SAC 📞</h2>
+ <p class="sub">Você ligou para a operadora “NetVoa Internet”. Escolha a melhor resposta e consiga seu protocolo!</p>
+ <div class="fone">
+  <div class="tela" id="sTela"></div>
+  <div class="resp" id="sResp"></div>
+ </div>
+ <div style="text-align:center;margin-top:12px"><button class="btn ou" onclick="sIni()">📞 Ligar de novo</button></div>
+</section>
+
+<!-- 10 ROLE-PLAY -->
+<section class="slide" data-t="Role-play">
+ <h2><span class="n">10</span>Role-play: cliente × atendente 🎭</h2>
+ <p class="sub">Sorteie uma situação. Duplas: A = cliente · B = atendente. Depois troquem!</p>
+ <div style="text-align:center;margin-bottom:12px"><button class="btn ou" onclick="rpSort()">🎲 Sortear situação</button></div>
+ <div class="rp">
+  <div class="card" style="border-top:6px solid var(--teal)"><h3>🙋 Cliente (A)</h3><div id="rpA">—</div></div>
+  <div class="card" style="border-top:6px solid var(--azul)"><h3>🎧 Atendente (B)</h3><div id="rpB">—</div></div>
+ </div>
+ <div class="card"><div class="timer" id="tm">03:00</div>
+  <div style="text-align:center;display:flex;gap:8px;justify-content:center"><button class="btn" onclick="tmIni()">▶ Iniciar</button><button class="btn az" onclick="tmPara()">⏸ Pausar</button><button class="btn ou" onclick="tmZera()">↺</button></div></div>
+ <div class="dica">✅ Critérios: cumprimentar · explicar o problema · pedir protocolo · dizer o que quer · usar 2 frases do kit · despedir-se.</div>
+</section>
+
+<!-- 11 DITADO -->
+<section class="slide" data-t="Ditado">
+ <h2><span class="n">11</span>Ditado relâmpago 🎧</h2>
+ <p class="sub">Ouça, escreva e só depois clique em “Ver resposta”</p>
+ <div class="card" id="dits"></div>
+</section>
+
+<!-- 12 TAREFA -->
+<section class="slide" data-t="Tarefa">
+ <h2><span class="n">12</span>Para casa 🏠</h2>
+ <div class="card">
+  <h3 style="color:var(--azul)">✍️ Produção escrita (80–100 palavras)</h3>
+  <p style="margin-top:8px;line-height:1.6">Você comprou um produto pela internet numa loja brasileira e ele chegou com problema. Escreva uma reclamação para o <b>Reclame Aqui</b> com:</p>
+  <ul style="margin:10px 0 0 22px;line-height:1.8"><li>título chamativo</li><li>o que você comprou e quando (pretérito perfeito)</li><li>o que aconteceu e o que você já tentou fazer</li><li>número de protocolo (invente!)</li><li>o que você espera da empresa (gostaria que… / solicito…)</li><li>pelo menos 5 palavras do vocabulário da aula</li></ul>
+ </div>
+ <div class="card" style="background:linear-gradient(135deg,var(--azul),var(--teal));color:#fff;text-align:center">
+  <div style="font-size:40px">🧾</div>
+  <b style="font-size:20px">“CPF na nota?”</b>
+  <p style="margin-top:6px">No Brasil, ao pagar, o caixa quase sempre pergunta isso. Colocar o CPF na nota fiscal pode dar descontos e créditos em programas estaduais (como a Nota Fiscal Paulista). Agora você já sabe responder: <i>“Não, obrigado(a)!”</i> ou <i>“Sim, por favor.”</i> 😉</p>
+ </div>
+ <p style="text-align:center;color:#667;font-size:13px">Enlace Brasil · WhatsApp +52 55 7321 7496 · @enlacebrasil_</p>
+</section>
+
+</main>
+
+<div class="pager"><button class="btn az" onclick="ir(atual-1)">◀</button><span id="pg"></span><button class="btn az" onclick="ir(atual+1)">▶</button></div>
+
+<script>
+/* ===== voz ===== */
+let vozPT=null;
+function carregaVoz(){const v=speechSynthesis.getVoices();vozPT=v.find(x=>x.lang==='pt-BR')||v.find(x=>x.lang&&x.lang.startsWith('pt'))||null}
+if('speechSynthesis' in window){carregaVoz();speechSynthesis.onvoiceschanged=carregaVoz}
+function falar(t){if(!('speechSynthesis' in window))return;speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(t);u.lang='pt-BR';if(vozPT)u.voice=vozPT;u.rate=.92;speechSynthesis.speak(u)}
+const esc=s=>s.replace(/'/g,"\\'");
+
+/* ===== navegação ===== */
+const slides=[...document.querySelectorAll('.slide')];let atual=0;
+const nav=document.getElementById('nav');
+slides.forEach((s,i)=>{const b=document.createElement('button');b.textContent=s.dataset.t;b.onclick=()=>ir(i);nav.appendChild(b)});
+function ir(i){if(i<0||i>=slides.length)return;atual=i;slides.forEach((s,k)=>s.classList.toggle('on',k===i));[...nav.children].forEach((b,k)=>b.classList.toggle('on',k===i));document.getElementById('pg').textContent=(i+1)+' / '+slides.length+' · '+slides[i].dataset.t;window.scrollTo(0,0)}
+document.addEventListener('keydown',e=>{if(e.target.tagName==='INPUT'||e.target.tagName==='SELECT')return;if(e.key==='ArrowRight')ir(atual+1);if(e.key==='ArrowLeft')ir(atual-1)});
+
+/* ===== 1 aquecimento ===== */
+const SITS=[['📦','O produto chegou quebrado'],['💳','Cobraram duas vezes no cartão'],['📞','Fiquei horas esperando no telefone'],['🔁','Quis trocar e a loja não aceitou'],['🚚','A entrega atrasou muito'],['📵','Não consegui cancelar uma assinatura'],['🧾','Não me deram nota fiscal'],['🤖','Só falei com robô, nunca com humano']];
+const sv=SITS.map(()=>0);
+function rendSits(){document.getElementById('sits').innerHTML=SITS.map((s,i)=>`<div class="card sit" onclick="sv[${i}]++;rendSits()"><div class="e">${s[0]}</div><div>${s[1]}</div><div class="v">🙋 ${sv[i]}</div></div>`).join('')}
+function zeraSits(){sv.fill(0);rendSits()}rendSits();
+
+/* ===== 2 vocabulário ===== */
+const VOC=[
+['🗣️','a reclamação','la queja / el reclamo','Vou fazer uma reclamação no site.'],
+['⏳','o prazo','el plazo','O prazo de entrega é de 5 dias úteis.'],
+['💸','o reembolso','el reembolso','Pedi o reembolso do valor total.'],
+['🧾','a nota fiscal','la factura / el ticket','Guarde a nota fiscal para a garantia.'],
+['🛡️','a garantia','la garantía','A garantia do fabricante é de um ano.'],
+['🔁','a troca','el cambio (de producto)','Quero fazer a troca: veio no tamanho errado.'],
+['↩️','a devolução','la devolución','A devolução é grátis pelos Correios.'],
+['🔧','o defeito','el defecto / la falla','A TV veio com defeito na tela.'],
+['🛠️','o conserto','la reparación','O conserto vai demorar 30 dias.'],
+['🔢','o número de protocolo','el número de folio','Anote o número de protocolo do atendimento.'],
+['❌','a cobrança indevida','el cobro indebido','Recebi uma cobrança indevida na fatura.'],
+['💳','o estorno','la reversión del cargo','O estorno aparece na próxima fatura do cartão.'],
+['🎧','o/a atendente','el/la agente de atención','A atendente foi muito educada.'],
+['📄','o boleto','el recibo de pago bancario','Paguei o boleto ontem, mas não compensou.'],
+['🚫','nome sujo / negativado','con mal historial crediticio (buró)','Fiquei com o nome sujo por uma dívida que já paguei.'],
+['🧮','parcelado / à vista','a meses / de contado','Comprei em 10 vezes sem juros, parcelado no cartão.']];
+document.getElementById('vocab').innerHTML=VOC.map((v,i)=>`<div class="flip" onclick="this.classList.toggle('vira')"><div class="in"><div class="f"><div class="ic">${v[0]}</div><div class="w">${v[1]}</div><button class="au" onclick="event.stopPropagation();falar('${esc(v[1])}. ${esc(v[3])}')">🔊</button></div><div class="b"><div class="es">${v[2]}</div><div>“${v[3]}”</div></div></div></div>`).join('');
+
+/* ===== 3 falsos amigos ===== */
+const FA=[
+['o conserto','🛠️ <b>reparación</b> — ≠ concierto (= <i>o concerto</i>, com C!)'],
+['a nota','🧾 aqui é <b>factura/ticket</b> (nota fiscal) — e também “calificación” na escola'],
+['cobrar','💰 igual ao espanhol… mas <b>“cobrar alguém”</b> = exigir algo de alguém: <i>“Vou cobrar uma resposta da loja.”</i>'],
+['a fatura','📬 é o <b>estado de cuenta</b> do cartão ou conta (luz, internet) — não a factura de compra'],
+['esquisito','🤨 <b>raro, extraño</b> — nada a ver com “exquisito”'],
+['o balcão','🏪 <b>el mostrador</b> da loja — não “balcón” (= <i>a varanda / a sacada</i>)'],
+['reclamar','😤 queixar-se — mas no Brasil também se usa no dia a dia: <i>“Ele reclama de tudo!”</i> (se queja de todo)']];
+document.getElementById('falsos').innerHTML=FA.map(f=>`<div class="card fa"><button class="au" onclick="falar('${esc(f[0].replace(/<[^>]+>/g,''))}')">🔊</button><div class="pt">${f[0]}</div><div class="rev" onclick="this.innerHTML=this.dataset.r;this.classList.add('ok')" data-r="${f[1].replace(/"/g,'&quot;')}">👆 Clique para revelar</div></div>`).join('');
+
+/* ===== 4 instituições ===== */
+const INST=[
+['📞','SAC','Serviço de Atendimento ao Consumidor','O canal da própria empresa. É sempre o <b>primeiro passo</b>. Por lei, o SAC deve oferecer opção de falar com um atendente humano e informar um <b>número de protocolo</b>. Frase-chave: <i>“Pode me passar o número de protocolo, por favor?”</i>','#1a9a8a'],
+['🏛️','PROCON','Programa de Proteção e Defesa do Consumidor','Órgão <b>público</b> (estadual/municipal). Recebe reclamações quando a empresa não resolve, faz mediação, fiscaliza lojas e pode <b>multar</b> empresas. Atendimento é gratuito.','#0d3b6e'],
+['🔴','SPC / Serasa','Serviço de Proteção ao Crédito','Bancos de dados de crédito, como o buró de crédito no México. Quem tem dívida atrasada pode ficar com o <b>“nome sujo”</b> (negativado) e ter crédito recusado. Você pode consultar seu CPF e deve ser avisado antes da negativação.','#d9534f'],
+['📣','Reclame Aqui','site privado de reputação','Site <b>privado</b> (não é governo!) onde o consumidor publica reclamações e a empresa responde publicamente. Muita gente consulta a reputação da loja <b>antes de comprar</b>. Pressão pública funciona!<br><a class=\"btn ou\" style=\"display:inline-block;margin-top:10px;text-decoration:none\" href=\"https://www.reclameaqui.com.br/\" target=\"_blank\" rel=\"noopener\" onclick=\"event.stopPropagation()\">🔗 Abrir o Reclame Aqui</a>','#f5c842'],
+['🌐','consumidor.gov.br','plataforma pública online','Bônus! Plataforma do governo federal: você reclama online e a empresa cadastrada tem um prazo para responder. Rápido e gratuito.','#2e9e5b']];
+document.getElementById('insts').innerHTML=INST.map(n=>`<div class="card inst" style="border-top-color:${n[4]}" onclick="this.classList.toggle('aberto')"><h3><span>${n[0]}</span>${n[1]}</h3><div class="full">${n[2]}</div><div class="mais">${n[3]}</div><div class="hint">👆 clique para abrir/fechar</div></div>`).join('');
+
+/* ===== 5 jogo ===== */
+const OP=['SAC','PROCON','SPC / Serasa','Reclame Aqui'];
+const JG=[
+['Minha internet está caindo toda hora. Quero que a operadora mande um técnico. Primeiro contato!',0,'Primeiro passo é sempre o SAC da empresa. Peça o protocolo!'],
+['Já liguei 5 vezes para a loja, tenho 5 protocolos e ninguém resolve. Quero uma mediação oficial.',1,'Quando a empresa não resolve, o PROCON faz mediação e pode multar.'],
+['Vou comprar um celular numa loja online que não conheço. Será que é confiável?',3,'No Reclame Aqui você vê a reputação e as respostas da empresa.'],
+['O banco recusou meu cartão de crédito. Acho que meu nome está sujo.',2,'Consulte seu CPF no SPC/Serasa para ver se há dívida registrada.'],
+['O supermercado do bairro está vendendo produtos vencidos. Quero denunciar.',1,'Fiscalização de estabelecimentos é com o PROCON.'],
+['Meu pedido chegou errado. Quero pedir a troca.',0,'Fale primeiro com o SAC/atendimento da loja.'],
+['A empresa me ignorou e quero contar publicamente minha experiência para pressionar.',3,'O Reclame Aqui é público: a empresa costuma responder rápido para proteger a reputação.'],
+['Quitei minha dívida há meses, mas quero confirmar se ainda estou negativado.',2,'Consulta de CPF: SPC/Serasa. Depois do pagamento, o nome deve ser “limpo”.']];
+let jI=0,jP=0,jOrd=[];
+function jIni(){jOrd=JG.map((_,i)=>i).sort(()=>Math.random()-.5);jI=0;jP=0;jMostra()}
+function jMostra(){const q=JG[jOrd[jI]];document.getElementById('jPt').textContent=jP+' pontos';document.getElementById('jN').textContent=(jI+1)+'/'+JG.length;document.getElementById('jBar').style.width=(jI/JG.length*100)+'%';document.getElementById('jCena').innerHTML='🧑 “'+q[0]+'” <button class="au" onclick="falar(\''+esc(q[0])+'\')">🔊</button>';document.getElementById('jOpc').innerHTML=OP.map((o,k)=>`<button onclick="jRes(${k},this)">${o}</button>`).join('');document.getElementById('jFb').textContent='';document.getElementById('jProx').style.display='none'}
+function jRes(k,el){const q=JG[jOrd[jI]];const bs=[...document.querySelectorAll('#jOpc button')];bs.forEach(b=>b.disabled=true);bs[q[1]].classList.add('certo');if(k===q[1]){jP+=10;document.getElementById('jFb').innerHTML='🎉 <b>Isso!</b> '+q[2]}else{el.classList.add('errado');document.getElementById('jFb').innerHTML='🤔 <b>Quase…</b> '+q[2]}document.getElementById('jPt').textContent=jP+' pontos';document.getElementById('jProx').style.display=jI<JG.length-1?'inline-block':'none';if(jI===JG.length-1){document.getElementById('jBar').style.width='100%';document.getElementById('jFb').innerHTML+='<br><br>🏁 <b>Fim! Total: '+jP+' / '+JG.length*10+' pontos</b>'}}
+function jProx(){jI++;jMostra()}jIni();
+
+/* ===== 6 verdade ou mito ===== */
+const VF=[
+['Comprei um tênis pela internet e me arrependi. Posso devolver em até 7 dias, sem dar justificativa.',true,'Direito de arrependimento: vale para compras fora da loja física (internet, telefone, catálogo).','CDC, art. 49'],
+['Comprei uma camiseta na loja física, não gostei da cor. A loja é obrigada a trocar.',false,'Sem defeito, a troca é cortesia da loja — só é obrigatória se ela prometeu (por exemplo, numa etiqueta ou cartaz).','Prática comercial · CDC só obriga em caso de defeito'],
+['Para produtos não duráveis (comida, cosméticos) com defeito, tenho 30 dias para reclamar. Para duráveis (geladeira, celular), 90 dias.',true,'Esses são os prazos da garantia legal, que vale mesmo sem garantia do fabricante.','CDC, art. 26'],
+['Se o produto tem defeito, a empresa tem até 30 dias para consertar. Se não resolver, posso escolher: troca, dinheiro de volta ou desconto.',true,'O consumidor escolhe entre substituição, restituição do valor ou abatimento proporcional do preço.','CDC, art. 18'],
+['O Reclame Aqui é um órgão do governo federal.',false,'É uma empresa privada. Os órgãos públicos são o PROCON e o consumidor.gov.br.','—'],
+['Se paguei uma cobrança indevida, em geral tenho direito a receber o valor em dobro.',true,'Devolução em dobro, com correção, salvo engano justificável da empresa.','CDC, art. 42, parágrafo único'],
+['A empresa pode colocar meu nome no SPC sem me avisar.',false,'O consumidor deve ser comunicado por escrito antes da inclusão do nome no cadastro.','CDC, art. 43, §2º'],
+['O SAC deve me informar um número de protocolo do atendimento.',true,'O protocolo é a sua prova de que reclamou. Sempre anote data, hora e nome do atendente!','Decreto 11.034/2022 (Lei do SAC)']];
+let vI=0,vP=0,vOrd=[];
+function vIni(){vOrd=VF.map((_,i)=>i).sort(()=>Math.random()-.5);vI=0;vP=0;vMostra()}
+function vMostra(){const q=VF[vOrd[vI]];document.getElementById('vQ').innerHTML='“'+q[0]+'” <button class="au" onclick="falar(\''+esc(q[0])+'\')">🔊</button>';document.getElementById('vN').textContent='Afirmação '+(vI+1)+' de '+VF.length;document.getElementById('vPt').textContent=vP+' / '+vI;document.getElementById('vFb').textContent='';document.getElementById('vLei').textContent='';document.getElementById('vProx').style.display='none';document.querySelectorAll('#vBt button').forEach(b=>b.disabled=false)}
+function vRes(r){const q=VF[vOrd[vI]];document.querySelectorAll('#vBt button').forEach(b=>b.disabled=true);const ok=r===q[1];if(ok)vP++;document.getElementById('vFb').innerHTML=(ok?'🎉 <b>Acertou!</b> ':'😮 <b>Errou!</b> ')+'É <b>'+(q[1]?'VERDADE':'MITO')+'</b>. '+q[2];document.getElementById('vLei').textContent='📖 '+q[3];document.getElementById('vPt').textContent=vP+' / '+(vI+1);if(vI<VF.length-1)document.getElementById('vProx').style.display='inline-block';else document.getElementById('vFb').innerHTML+='<br><br>🏁 <b>Resultado final: '+vP+' de '+VF.length+'</b>'}
+function vProx(){vI++;vMostra()}vIni();
+
+/* ===== 7 escada + kit ===== */
+const ESC=[['😤 grosso','#d9534f','Isso é um absurdo! Vocês são uns incompetentes!'],['😒 informal','#e08a2c','Ô, moço, meu pedido não chegou até agora, viu?'],['🙂 neutro','#1a9a8a','Meu pedido ainda não chegou. Vocês podem verificar?'],['🎩 formal','#0d3b6e','Gostaria de registrar uma reclamação: meu pedido ainda não foi entregue. Poderia verificar, por favor?']];
+document.getElementById('escada').innerHTML=ESC.map(e=>`<div class="degrau"><span class="lv" style="background:${e[1]}">${e[0]}</span><span style="flex:1">${e[2]}</span><button class="au" onclick="falar('${esc(e[2])}')">🔊</button></div>`).join('');
+const KIT=[['Abrir','Bom dia! Eu gostaria de fazer uma reclamação.'],['Explicar','Eu comprei um produto no dia 10 e até agora não recebi.'],['Explicar','O produto veio com defeito / quebrado / no tamanho errado.'],['Pedir','Poderia verificar o que aconteceu, por favor?'],['Pedir','Eu queria pedir a troca / o reembolso / o estorno.'],['Garantir','Pode me passar o número de protocolo?'],['Insistir','Entendo, mas o prazo já venceu. Qual é a solução?'],['Insistir','Eu gostaria de falar com um supervisor.'],['Ameaçar (com educação)','Se não for resolvido, vou registrar uma reclamação no PROCON.'],['Fechar','Obrigado(a) pela atenção. Fico no aguardo.']];
+document.getElementById('kit').innerHTML=KIT.map(k=>`<div style="display:flex;align-items:center;gap:10px;padding:6px 0;border-bottom:1px solid #eef2f5"><span class="tag" style="font-size:11px;min-width:90px;text-align:center">${k[0]}</span><span style="flex:1">${k[1]}</span><button class="au" onclick="falar('${esc(k[1])}')">🔊</button></div>`).join('');
+
+/* ===== 8 builder ===== */
+const MB={
+m1:['Produto chegou quebrado e ninguém resolve!','Cobrança indevida na minha fatura','Entrega atrasada há mais de 20 dias','Não consigo cancelar minha assinatura'],
+m2:['Comprei uma cafeteira elétrica no site da loja no dia 3 de outubro.','Contratei um plano de internet de 300 mega em setembro.','Comprei um celular parcelado em 10 vezes no dia 15 do mês passado.','Assinei um aplicativo de academia com período de teste grátis.'],
+m3:['O produto chegou com a tampa quebrada e não funciona.','Na fatura deste mês, cobraram duas vezes o mesmo valor.','O prazo de entrega era de 7 dias úteis, mas até agora nada chegou.','Tentei cancelar pelo aplicativo, mas a opção não aparece e continuam me cobrando.'],
+m4:['Já liguei três vezes para o SAC (protocolo nº 2026110612345), mas ninguém resolveu.','Enviei e-mails e mensagens pelo chat, porém só recebi respostas automáticas.','Falei com uma atendente que prometeu uma solução em 48 horas, mas não cumpriu.'],
+m5:['Gostaria da troca do produto o quanto antes.','Solicito o estorno do valor cobrado indevidamente.','Quero o reembolso total, conforme o Código de Defesa do Consumidor.','Peço o cancelamento imediato, sem multa.']};
+Object.keys(MB).forEach(k=>{document.getElementById(k).innerHTML=MB[k].map((o,i)=>`<option value="${i}">${o}</option>`).join('')});
+function monta(){const g=k=>MB[k][document.getElementById(k).value];document.getElementById('mTxt').innerText=`📣 ${g('m1')}\n\n${g('m2')} ${g('m3')} ${g('m4')}\n\nEstou muito insatisfeito(a) com o atendimento. ${g('m5')} Caso não haja uma resposta, vou registrar uma reclamação no PROCON.\n\nAguardo retorno.`}
+function sorteiaM(){Object.keys(MB).forEach(k=>document.getElementById(k).value=Math.floor(Math.random()*MB[k].length));monta()}
+
+/* ===== 9 simulador SAC ===== */
+const SAC={
+ini:{s:['🤖 Olá! Você ligou para a NetVoa Internet. Para segunda via de boleto, digite 1. Para problemas técnicos, digite 2. Para cancelamento, digite 3. Para falar com um atendente, digite 9.'],r:[['Digitar 2 – problemas técnicos','robo'],['Digitar 9 – falar com atendente','hum'],['Gritar “ATENDENTEEEE!”','grito']]},
+grito:{sis:'(O robô não entendeu 😅)',s:['🤖 Desculpe, não entendi. Para falar com um atendente, digite 9.'],r:[['Digitar 9','hum']]},
+robo:{s:['🤖 Você já tentou desligar e ligar o modem? Se sim, digite 1. Se quiser falar com um atendente, digite 9.'],r:[['Digitar 1 – já tentei','robo2'],['Digitar 9','hum']]},
+robo2:{s:['🤖 Hmm… Vou transferir você para um atendente. Aguarde na linha. 🎵🎶'],r:[['Esperar com paciência…','hum']]},
+hum:{sis:'🎵 … 8 minutos depois …',s:['👩 NetVoa, boa tarde! Meu nome é Carla. Com quem eu falo?'],r:[['Boa tarde, Carla! Aqui é o(a) [seu nome]. Eu gostaria de fazer uma reclamação.','p1',2],['Finalmente! Vocês demoram demais!','p1',0],['Oi.','p1',1]]},
+p1:{s:['👩 Pois não! Qual é o problema?'],r:[['A minha internet cai várias vezes por dia desde a semana passada. Eu trabalho em casa e preciso dela.','p2',2],['Internet ruim.','p2',1],['A internet de vocês é um lixo!','p2',0]]},
+p2:{s:['👩 Entendo. Vou abrir um chamado técnico. O prazo é de até 5 dias úteis, tá?'],r:[['Cinco dias é muito tempo. Não seria possível agendar a visita para amanhã? Eu dependo da internet para trabalhar.','p3',2],['Tá bom.','p3b',1],['Cinco dias?! Que absurdo!','p3b',0]]},
+p3:{s:['👩 Deixa eu verificar… Consegui um horário amanhã, entre 8h e 12h. Pode ser?'],r:[['Perfeito! E poderia me dar um desconto na fatura pelos dias sem serviço?','p4',2],['Pode.','p4b',1]]},
+p3b:{s:['👩 Certo, o técnico vai em até 5 dias úteis. Mais alguma coisa?'],r:[['Sim. Pode me passar o número de protocolo, por favor?','fim',1],['Não, tchau.','semp',0]]},
+p4:{s:['👩 Vou solicitar um abatimento proporcional na próxima fatura. Mais alguma coisa?'],r:[['Sim, pode me passar o número de protocolo, por favor?','fim',2],['Não, obrigado(a). Tchau!','semp',1]]},
+p4b:{s:['👩 Combinado! Mais alguma coisa?'],r:[['Pode me passar o número de protocolo, por favor?','fim',2],['Não, tchau.','semp',0]]},
+semp:{sis:'⚠️ Você desligou SEM o número de protocolo! Sem ele, fica difícil provar a reclamação depois.',s:[],r:[],end:true},
+fim:{s:['👩 Claro! Anote: protocolo '+(Math.floor(Math.random()*9e9)+1e9)+'. A NetVoa agradece a sua ligação. Tenha uma boa tarde!'],r:[],end:true,ok:true}};
+let sPts=0;
+function sAdd(c,t){const d=document.createElement('div');d.className='msg '+c;d.textContent=t;const tl=document.getElementById('sTela');tl.appendChild(d);tl.scrollTop=tl.scrollHeight}
+function sVai(k){const n=SAC[k];if(n.sis)sAdd('sis',n.sis);n.s.forEach(t=>{sAdd('sac',t)});if(n.s.length)falar(n.s.join(' ').replace(/[🤖👩🎵🎶]/g,''));const R=document.getElementById('sResp');R.innerHTML='';
+ if(n.end){const max=10;const nota=sPts>=9?'🏆 Excelente! Educado(a) e firme.':sPts>=6?'👍 Bom! Mas dá para ser mais educado(a) ou mais firme.':'😬 Cuidado com o tom: educação abre portas no SAC!';sAdd('sis',(n.ok?'✅ Protocolo conseguido! ':'')+'Pontuação de comunicação: '+sPts+'/'+max+' · '+nota);return}
+ n.r.forEach(r=>{const b=document.createElement('button');b.textContent=r[0];b.onclick=()=>{sAdd('eu',r[0]);sPts+=(r[2]||0);sVai(r[1])};R.appendChild(b)})}
+function sIni(){sPts=0;document.getElementById('sTela').innerHTML='';sAdd('sis','📞 Chamando… 0800 123 4567');setTimeout(()=>sVai('ini'),600)}
+sIni();
+
+/* ===== 10 role-play ===== */
+const RP=[
+['Você comprou um ventilador numa loja online. Chegou sem uma peça. Você quer a troca e precisa dele antes do fim de semana (está muito calor!).','Você trabalha no SAC da loja. A troca demora 10 dias úteis. Você pode oferecer: reembolso imediato ou um cupom de 15%.'],
+['Apareceu uma cobrança de R$ 89,90 na sua fatura de um serviço de streaming que você cancelou mês passado. Você quer o estorno.','Você é atendente do streaming. O sistema mostra que o cancelamento “não foi concluído”. Seja simpático(a), mas siga as regras.'],
+['Você quer cancelar a academia. O contrato diz que é preciso avisar com 30 dias de antecedência, mas você vai se mudar de cidade semana que vem.','Você é atendente da academia e tenta convencer o cliente a não cancelar: ofereça congelar o plano ou uma unidade em outra cidade.'],
+['Você levou o celular para o conserto na garantia há 35 dias e ainda não está pronto. Você conhece o CDC e quer um aparelho novo.','Você é atendente da assistência técnica. A peça ainda não chegou. Tente ganhar mais 1 semana.'],
+['Seu voo foi cancelado e a companhia aérea só ofereceu outro voo daqui a 2 dias. Você tem um casamento amanhã!','Você é atendente da companhia aérea. Tem um voo amanhã cedo, mas com conexão. Também pode oferecer hotel.'],
+['No restaurante, a conta veio com 2 pratos que você não pediu e com a taxa de serviço de 10%. Você quer corrigir a conta.','Você é o garçom/gerente. Os 10% são opcionais no Brasil, mas você prefere que o cliente pague. Peça desculpas pelos pratos.']];
+function rpSort(){const r=RP[Math.floor(Math.random()*RP.length)];document.getElementById('rpA').textContent=r[0];document.getElementById('rpB').textContent=r[1];tmZera()}
+let tmS=180,tmH=null;
+function tmR(){document.getElementById('tm').textContent=String(Math.floor(tmS/60)).padStart(2,'0')+':'+String(tmS%60).padStart(2,'0')}
+function tmIni(){if(tmH)return;tmH=setInterval(()=>{if(tmS>0){tmS--;tmR()}else{tmPara();document.getElementById('tm').textContent='⏰ Tempo!'}},1000)}
+function tmPara(){clearInterval(tmH);tmH=null}
+function tmZera(){tmPara();tmS=180;tmR()}
+
+/* ===== 11 ditado ===== */
+const DIT=['Eu gostaria de pedir o reembolso do valor.','O prazo para trocar o produto já venceu.','Pode me passar o número de protocolo, por favor?','Guardei a nota fiscal para usar a garantia.'];
+document.getElementById('dits').innerHTML=DIT.map((d,i)=>`<div class="dit"><button class="au" onclick="falar('${esc(d)}')">🔊</button><span style="font-weight:700;color:var(--azul)">${i+1}.</span><input placeholder="Escreva o que ouviu…"><button class="btn ou" style="padding:8px 12px;font-size:13px" onclick="this.parentNode.querySelector('.gab').classList.add('ok')">Ver resposta</button><div class="gab">✅ ${d}</div></div>`).join('');
+
+ir(0);
+</script>
+</body>
+</html>
